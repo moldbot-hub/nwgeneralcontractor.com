@@ -130,8 +130,12 @@ document.addEventListener('DOMContentLoaded', function() {
         source: window.location.pathname
       };
 
-      fetch(SETMATE_WEBHOOK + '?key=' + SETMATE_API_KEY, {
+      fetch(SETMATE_WEBHOOK, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': SETMATE_API_KEY
+        },
         body: JSON.stringify(payload)
       }).then(function(res) {
         if (res.ok) {
