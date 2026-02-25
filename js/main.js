@@ -127,7 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
         message: data.message || '',
         service: data.service || '',
         city: data.city || '',
-        source: window.location.pathname
+        source: window.location.pathname,
+        tracking: window._smTracking ? window._smTracking.getData() : null
       };
 
       fetch(SETMATE_WEBHOOK, {
@@ -139,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify(payload)
       }).then(function(res) {
         if (res.ok) {
+          if (window._smTracking) window._smTracking.clear();
           form.innerHTML = '<div style="text-align:center;padding:2rem 1rem;">'
             + '<h3 style="color:#1a5632;margin-bottom:0.5rem;">Thank You!</h3>'
             + '<p style="color:#555;">We received your request and will get back to you within 24 hours.</p>'
