@@ -180,98 +180,126 @@
     </div>
   </section>
 
-  <!-- Services -->
-  <section>
+  <!-- Services — Glowing Bento Grid -->
+  <section style="background: var(--navy-dark); padding: 4rem 0;">
     <div class="container">
-      <div class="section-header">
-        <div class="section-label">Our Services</div>
-        <h2>Home Remodeling Services in Everett, WA</h2>
-        <p>Whether you're dreaming of a new kitchen, updating your bathroom, or adding living space with an ADU, we bring your vision to life with quality craftsmanship and clear communication.</p>
+      <div class="section-header" style="margin-bottom: 2.5rem;">
+        <div class="section-label" style="color: var(--orange);">Our Services</div>
+        <h2 style="color: var(--white);">Home Remodeling Services in Everett, WA</h2>
+        <p style="color: rgba(255,255,255,0.7);">Whether you're dreaming of a new kitchen, updating your bathroom, or adding living space with an ADU, we bring your vision to life with quality craftsmanship and clear communication.</p>
       </div>
-      <div class="services-grid">
-        <a href="services/kitchen-remodeling.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h5v7l2.5-1.5L16 11V4h2v16z"/></svg>
+      <div class="bento-grid">
+
+        <!-- 1. Kitchen — large featured card (span 7, 2 rows) -->
+        <a href="services/kitchen-remodeling.html" class="glow-card bento-1">
+          <div class="glow-border"></div>
+          <div class="bento-inner" style="background-image: url(images/kitchen-hero.jpg);">
+            <div class="bento-content">
+              <div class="bento-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h5v7l2.5-1.5L16 11V4h2v16z"/></svg>
+              </div>
+              <h3>Kitchen Remodeling</h3>
+              <p>Custom cabinets, countertops, flooring, lighting, and full kitchen renovations.</p>
+            </div>
           </div>
-          <h3>Kitchen Remodeling</h3>
-          <p>Custom cabinets, countertops, flooring, lighting, and full kitchen renovations that transform the heart of your home.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/bathroom-remodeling.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M7 7c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm11.47 5.13a2.49 2.49 0 00-3.39.91 2.51 2.51 0 001.97 3.72c.7.07 1.38-.18 1.88-.66.5-.49.79-1.17.72-1.87a2.5 2.5 0 00-1.18-2.1zM20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <!-- 2. Bathroom (span 5) -->
+        <a href="services/bathroom-remodeling.html" class="glow-card bento-2">
+          <div class="glow-border"></div>
+          <div class="bento-inner" style="background-image: url(images/bathroom-hero.jpg);">
+            <div class="bento-content">
+              <div class="bento-icon">
+                <svg viewBox="0 0 24 24"><path d="M7 7c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zM20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+              </div>
+              <h3>Bathroom Remodeling</h3>
+              <p>Spa-like renovations with tile work, vanities, and walk-in showers.</p>
+            </div>
           </div>
-          <h3>Bathroom Remodeling</h3>
-          <p>Spa-like bathroom renovations including tile work, vanities, walk-in showers, and tub-to-shower conversions.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/adu-construction.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7zm-9 .7c0-1.1.9-2 2-2s2 .9 2 2h-4z"/></svg>
+        <!-- 3. ADU (span 5) -->
+        <a href="services/adu-construction.html" class="glow-card bento-3">
+          <div class="glow-border"></div>
+          <div class="bento-inner" style="background-image: url(images/adu-hero.jpg);">
+            <div class="bento-content">
+              <div class="bento-icon">
+                <svg viewBox="0 0 24 24"><path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7zm-9 .7c0-1.1.9-2 2-2s2 .9 2 2h-4z"/></svg>
+              </div>
+              <h3>ADU Construction</h3>
+              <p>Backyard cottages, garage conversions, and basement apartments.</p>
+            </div>
           </div>
-          <h3>ADU Construction</h3>
-          <p>Accessory Dwelling Units: garage conversions, backyard cottages, and basement apartments. Generate rental income or house family.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/home-additions.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        <!-- 4. Home Additions (span 4) -->
+        <a href="services/home-additions.html" class="glow-card bento-4">
+          <div class="glow-border"></div>
+          <div class="bento-inner" style="background-image: url(images/home-additions-hero.jpg);">
+            <div class="bento-content">
+              <div class="bento-icon">
+                <svg viewBox="0 0 24 24"><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+              </div>
+              <h3>Home Additions</h3>
+              <p>Room additions and bump-outs that expand your living space.</p>
+            </div>
           </div>
-          <h3>Home Additions</h3>
-          <p>Room additions and bump-outs that expand your living space. Extra bedrooms, expanded family rooms, and sunrooms.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/deck-building.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zM11.5 1L2 6v2h19V6l-9.5-5z"/></svg>
+        <!-- 5. Deck Building (span 4) -->
+        <a href="services/deck-building.html" class="glow-card bento-5">
+          <div class="glow-border"></div>
+          <div class="bento-inner" style="background-image: url(images/deck-hero.jpg);">
+            <div class="bento-content">
+              <div class="bento-icon">
+                <svg viewBox="0 0 24 24"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zM11.5 1L2 6v2h19V6l-9.5-5z"/></svg>
+              </div>
+              <h3>Deck Building</h3>
+              <p>Custom wood and composite decks built for PNW weather.</p>
+            </div>
           </div>
-          <h3>Deck Building</h3>
-          <p>Custom wood and composite decks, covered patios, and outdoor living spaces built to handle Pacific Northwest weather.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/whole-home-renovation.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <!-- 6. Whole Home Renovation (span 4) -->
+        <a href="services/whole-home-renovation.html" class="glow-card bento-6">
+          <div class="glow-border"></div>
+          <div class="bento-inner" style="background-image: url(images/whole-home-hero.jpg);">
+            <div class="bento-content">
+              <div class="bento-icon">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              </div>
+              <h3>Whole Home Renovation</h3>
+              <p>Complete home transformations from layout to finishes.</p>
+            </div>
           </div>
-          <h3>Whole Home Renovation</h3>
-          <p>Complete home transformations including structural changes, layout redesigns, and full interior/exterior updates.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/roofing.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <!-- 7. Roofing (span 6) -->
+        <a href="services/roofing.html" class="glow-card bento-7">
+          <div class="glow-border"></div>
+          <div class="bento-inner" style="background-image: url(images/roofing-hero.jpg);">
+            <div class="bento-content">
+              <div class="bento-icon">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              </div>
+              <h3>Roofing</h3>
+              <p>Roof replacement, repairs, and inspections for Pacific Northwest homes.</p>
+            </div>
           </div>
-          <h3>Roofing</h3>
-          <p>Complete roof replacement, repairs, and inspections. Asphalt, metal, and composite roofing built for Pacific Northwest weather.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/siding.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        <!-- 8. View All 17 Services (span 6) -->
+        <a href="services/kitchen-remodeling.html" class="glow-card bento-8 bento-viewall">
+          <div class="glow-border"></div>
+          <div class="bento-inner">
+            <div class="bento-content">
+              <h3>View All 17 Services</h3>
+              <p style="color: rgba(255,255,255,0.65);">Siding, flooring, fencing, painting, outdoor living &amp; more</p>
+              <span class="view-all-arrow">&rarr;</span>
+            </div>
           </div>
-          <h3>Siding</h3>
-          <p>Fiber cement, vinyl, and wood siding installation and repair. Protect your home and boost curb appeal with quality materials.</p>
-          <span class="learn-more">Learn More</span>
         </a>
 
-        <a href="services/outdoor-living.html" class="service-card">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-          </div>
-          <h3>Outdoor Living</h3>
-          <p>Custom pergolas, covered patios, outdoor kitchens, and fire features. Extend your living space into the great outdoors.</p>
-          <span class="learn-more">Learn More</span>
-        </a>
-      </div>
-      <div style="text-align:center;margin-top:2rem;">
-        <a href="about.html" class="btn btn-navy">View All 17 Services</a>
       </div>
     </div>
   </section>
@@ -490,6 +518,7 @@
   </footer>
 
   <script src="js/tracking.js"></script>
-<script src="js/main.js"></script>
+  <script src="js/glow.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
