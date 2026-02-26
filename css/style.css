@@ -161,17 +161,19 @@ header {
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .logo-text {
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--navy);
   line-height: 1.15;
 }
 .logo-text span { color: var(--orange); }
 .logo-tagline {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--gray-600);
   font-weight: 400;
   letter-spacing: 0.5px;
