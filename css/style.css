@@ -30,28 +30,6 @@
   --max-width: 1200px;
 }
 
-/* ==========================================================================
-   @property — enables smooth CSS transitions on custom properties
-   Used for tree-ring gradient button animation
-   ========================================================================== */
-@property --btn-pos-x { syntax: '<percentage>'; initial-value: 11%; inherits: false; }
-@property --btn-pos-y { syntax: '<percentage>'; initial-value: 140%; inherits: false; }
-@property --btn-spread-x { syntax: '<percentage>'; initial-value: 150%; inherits: false; }
-@property --btn-spread-y { syntax: '<percentage>'; initial-value: 180%; inherits: false; }
-@property --btn-ring-1 { syntax: '<color>'; initial-value: #C17A2F; inherits: false; }
-@property --btn-ring-2 { syntax: '<color>'; initial-value: #B06A25; inherits: false; }
-@property --btn-ring-3 { syntax: '<color>'; initial-value: #9A5B28; inherits: false; }
-@property --btn-ring-4 { syntax: '<color>'; initial-value: #7A4820; inherits: false; }
-@property --btn-ring-5 { syntax: '<color>'; initial-value: #5C3518; inherits: false; }
-@property --btn-stop-1 { syntax: '<percentage>'; initial-value: 37%; inherits: false; }
-@property --btn-stop-2 { syntax: '<percentage>'; initial-value: 61%; inherits: false; }
-@property --btn-stop-3 { syntax: '<percentage>'; initial-value: 78%; inherits: false; }
-@property --btn-stop-4 { syntax: '<percentage>'; initial-value: 90%; inherits: false; }
-@property --btn-stop-5 { syntax: '<percentage>'; initial-value: 100%; inherits: false; }
-@property --btn-border-angle { syntax: '<angle>'; initial-value: 20deg; inherits: true; }
-@property --btn-border-1 { syntax: '<color>'; initial-value: hsla(31,61%,47%,0.2); inherits: true; }
-@property --btn-border-2 { syntax: '<color>'; initial-value: hsla(31,61%,47%,0.6); inherits: true; }
-
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
@@ -78,7 +56,7 @@ h3 { font-size: clamp(1.15rem, 2.5vw, 1.5rem); margin-bottom: 0.5rem; }
 p { margin-bottom: 1rem; color: var(--gray-700); }
 
 /* ==========================================================================
-   Buttons — Tree-ring gradient on hover (radial gradient + @property)
+   Buttons — Tree-ring texture reveals on hover
    ========================================================================== */
 .btn {
   display: inline-block;
@@ -92,62 +70,37 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
   position: relative;
   overflow: hidden;
   z-index: 0;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .btn:hover {
   transform: translateY(-2px);
 }
 
-/* ---- Primary: Copper with tree-ring hover ---- */
-.btn-primary {
-  color: var(--white);
-  background: radial-gradient(
-    var(--btn-spread-x) var(--btn-spread-y) at var(--btn-pos-x) var(--btn-pos-y),
-    var(--btn-ring-1) var(--btn-stop-1),
-    var(--btn-ring-2) var(--btn-stop-2),
-    var(--btn-ring-3) var(--btn-stop-3),
-    var(--btn-ring-4) var(--btn-stop-4),
-    var(--btn-ring-5) var(--btn-stop-5)
-  );
-  transition:
-    --btn-pos-x 0.5s, --btn-pos-y 0.5s,
-    --btn-spread-x 0.5s, --btn-spread-y 0.5s,
-    --btn-ring-1 0.5s, --btn-ring-2 0.5s, --btn-ring-3 0.5s, --btn-ring-4 0.5s, --btn-ring-5 0.5s,
-    --btn-stop-1 0.5s, --btn-stop-2 0.5s, --btn-stop-3 0.5s, --btn-stop-4 0.5s, --btn-stop-5 0.5s,
-    --btn-border-angle 0.5s, --btn-border-1 0.5s, --btn-border-2 0.5s,
-    transform 0.3s;
-}
-.btn-primary::before {
+/* Tree-ring texture overlay — fades in on hover */
+.btn-primary::before,
+.btn-navy::before {
   content: '';
   position: absolute;
   inset: 0;
+  background: url(/images/tree-rings.jpg) center/cover no-repeat;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
   border-radius: inherit;
-  padding: 1.5px;
-  background: linear-gradient(var(--btn-border-angle), var(--btn-border-1), var(--btn-border-2));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
+}
+.btn-primary:hover::before,
+.btn-navy:hover::before {
+  opacity: 1;
+}
+
+/* ---- Primary: Copper base, tree-ring hover ---- */
+.btn-primary {
+  background: var(--orange);
+  color: var(--white);
 }
 .btn-primary:hover {
-  --btn-pos-x: 30%;
-  --btn-pos-y: 50%;
-  --btn-spread-x: 90%;
-  --btn-spread-y: 100%;
-  --btn-ring-1: #F5EED6;
-  --btn-ring-2: #D4A854;
-  --btn-ring-3: #5C3518;
-  --btn-ring-4: #C17A2F;
-  --btn-ring-5: #2C2416;
-  --btn-stop-1: 0%;
-  --btn-stop-2: 10%;
-  --btn-stop-3: 28%;
-  --btn-stop-4: 58%;
-  --btn-stop-5: 100%;
-  --btn-border-angle: 190deg;
-  --btn-border-1: hsla(40,80%,90%,0.15);
-  --btn-border-2: hsla(38,65%,55%,0.7);
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(193,122,47,0.4), 0 0 40px rgba(212,168,84,0.2);
 }
 
 /* ---- Outline: Transparent + white border (hero/dark backgrounds) ---- */
@@ -163,63 +116,14 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
   border-color: rgba(255,255,255,0.6);
 }
 
-/* ---- Navy: Forest green with tree-ring hover ---- */
+/* ---- Navy: Forest green base, tree-ring hover ---- */
 .btn-navy {
+  background: var(--navy);
   color: var(--white);
-  --btn-ring-1: #1E3A2B;
-  --btn-ring-2: #1A3325;
-  --btn-ring-3: #162C1F;
-  --btn-ring-4: #122519;
-  --btn-ring-5: #0E1E13;
-  --btn-border-1: hsla(150,33%,27%,0.2);
-  --btn-border-2: hsla(150,33%,27%,0.6);
-  background: radial-gradient(
-    var(--btn-spread-x) var(--btn-spread-y) at var(--btn-pos-x) var(--btn-pos-y),
-    var(--btn-ring-1) var(--btn-stop-1),
-    var(--btn-ring-2) var(--btn-stop-2),
-    var(--btn-ring-3) var(--btn-stop-3),
-    var(--btn-ring-4) var(--btn-stop-4),
-    var(--btn-ring-5) var(--btn-stop-5)
-  );
-  transition:
-    --btn-pos-x 0.5s, --btn-pos-y 0.5s,
-    --btn-spread-x 0.5s, --btn-spread-y 0.5s,
-    --btn-ring-1 0.5s, --btn-ring-2 0.5s, --btn-ring-3 0.5s, --btn-ring-4 0.5s, --btn-ring-5 0.5s,
-    --btn-stop-1 0.5s, --btn-stop-2 0.5s, --btn-stop-3 0.5s, --btn-stop-4 0.5s, --btn-stop-5 0.5s,
-    --btn-border-angle 0.5s, --btn-border-1 0.5s, --btn-border-2 0.5s,
-    transform 0.3s;
-}
-.btn-navy::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: linear-gradient(var(--btn-border-angle), var(--btn-border-1), var(--btn-border-2));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
 }
 .btn-navy:hover {
-  --btn-pos-x: 30%;
-  --btn-pos-y: 50%;
-  --btn-spread-x: 90%;
-  --btn-spread-y: 100%;
-  --btn-ring-1: #F5EED6;
-  --btn-ring-2: #7CB98B;
-  --btn-ring-3: #1E3A2B;
-  --btn-ring-4: #8FC99D;
-  --btn-ring-5: #0E1E13;
-  --btn-stop-1: 0%;
-  --btn-stop-2: 10%;
-  --btn-stop-3: 28%;
-  --btn-stop-4: 58%;
-  --btn-stop-5: 100%;
-  --btn-border-angle: 190deg;
-  --btn-border-1: hsla(140,35%,60%,0.15);
-  --btn-border-2: hsla(140,35%,60%,0.7);
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(45,90,61,0.4), 0 0 40px rgba(193,122,47,0.2);
 }
 
 /* ==========================================================================
