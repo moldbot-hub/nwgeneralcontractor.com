@@ -120,12 +120,28 @@ document.addEventListener('DOMContentLoaded', function() {
       var formData = new FormData(form);
       formData.forEach(function(value, key) { data[key] = value; });
 
+      // Auto-detect service from page URL if the form doesn't have a service field
+      var detectedService = data.service || '';
+      if (!detectedService) {
+        var path = window.location.pathname.toLowerCase();
+        if (path.indexOf('kitchen') !== -1) detectedService = 'kitchen';
+        else if (path.indexOf('bathroom') !== -1) detectedService = 'bathroom';
+        else if (path.indexOf('adu') !== -1) detectedService = 'adu';
+        else if (path.indexOf('addition') !== -1) detectedService = 'addition';
+        else if (path.indexOf('deck') !== -1) detectedService = 'deck';
+        else if (path.indexOf('whole-home') !== -1 || path.indexOf('renovation') !== -1) detectedService = 'whole-home';
+        else if (path.indexOf('carpentry') !== -1) detectedService = 'carpentry';
+        else if (path.indexOf('siding') !== -1) detectedService = 'siding';
+        else if (path.indexOf('window') !== -1) detectedService = 'windows';
+        else if (path.indexOf('roofing') !== -1 || path.indexOf('roof') !== -1) detectedService = 'roofing';
+      }
+
       var payload = {
         name: data.name || '',
         email: data.email || '',
         phone: data.phone || '',
         message: data.message || '',
-        service: data.service || '',
+        service: detectedService,
         city: data.city || '',
         source: window.location.pathname,
         tracking: window._smTracking ? window._smTracking.getData() : null
