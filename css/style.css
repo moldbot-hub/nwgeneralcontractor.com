@@ -412,10 +412,9 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   animation: heroFadeUp 1s 0.7s both;
 }
 .hero-title-accent {
-  background: linear-gradient(90deg, #7CB98B, rgba(255,255,255,0.9), #D4A854);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--orange);
+  -webkit-text-fill-color: var(--orange);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.6);
 }
 .hero p {
   color: rgba(255,255,255,0.95);
