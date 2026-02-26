@@ -239,13 +239,14 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
 .dropdown { position: relative; }
 .dropdown-content {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-8px);
   background: var(--cream);
   border: 1px solid var(--gray-200);
   border-radius: 16px;
   padding: 24px;
+  padding-top: 32px;
   z-index: 100;
   box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
   opacity: 0;
