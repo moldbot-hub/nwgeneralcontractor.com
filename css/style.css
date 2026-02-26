@@ -1,29 +1,31 @@
 /* ==========================================================================
    NW General Contractor - Main Stylesheet
-   Colors: Navy (#1B365D), White (#FFF), Orange (#E8751A)
+   Colors: Forest Green (#1E3A2B), Warm Copper (#C17A2F), Cream (#F5EED6)
+   Palette derived from tree-ring logo
    ========================================================================== */
 
 /* Reset & Base */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --navy: #1B365D;
-  --navy-dark: #0F2340;
-  --navy-light: #2A4A7A;
-  --orange: #E8751A;
-  --orange-hover: #D06410;
+  --navy: #1E3A2B;
+  --navy-dark: #142A1E;
+  --navy-light: #2D5A3D;
+  --orange: #C17A2F;
+  --orange-hover: #9A5B28;
   --white: #FFFFFF;
-  --gray-50: #F8F9FA;
-  --gray-100: #F0F2F5;
-  --gray-200: #E2E5EA;
-  --gray-300: #CED2D9;
-  --gray-600: #6B7280;
-  --gray-700: #4B5563;
-  --gray-800: #333333;
-  --text: #1a1a1a;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
-  --shadow-lg: 0 8px 30px rgba(0,0,0,0.15);
+  --cream: #F5EED6;
+  --gray-50: #F7F6F2;
+  --gray-100: #EDEBE4;
+  --gray-200: #DDD9CF;
+  --gray-300: #C8C3B8;
+  --gray-600: #6B6556;
+  --gray-700: #4B4639;
+  --gray-800: #2C2416;
+  --text: #2C2416;
+  --shadow-sm: 0 1px 3px rgba(44,36,22,0.1);
+  --shadow-md: 0 4px 12px rgba(44,36,22,0.12);
+  --shadow-lg: 0 8px 30px rgba(44,36,22,0.15);
   --radius: 8px;
   --max-width: 1200px;
 }
@@ -75,7 +77,7 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+  background: linear-gradient(90deg, #2D5A3D, #C17A2F, #D4A854);
   opacity: 0;
   filter: blur(8px);
   transition: opacity 0.5s ease;
@@ -87,7 +89,7 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
 }
 /* Outer glow shadow on hover */
 .btn:hover {
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 20px rgba(193,122,47,0.4), 0 0 40px rgba(45,90,61,0.2);
   transform: translateY(-2px);
 }
 
@@ -173,7 +175,14 @@ header {
   letter-spacing: 0.5px;
 }
 
-/* Logo icon (house SVG inline) */
+/* Logo image */
+.logo-img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+/* Legacy SVG icon fallback */
 .logo-icon {
   width: 48px;
   height: 48px;
@@ -205,7 +214,7 @@ nav > ul > li > a {
   color: var(--gray-700);
 }
 nav > ul > li > a:hover, nav > ul > li > a.active {
-  background: rgba(27,54,93,0.08);
+  background: rgba(30,58,43,0.08);
   color: var(--navy);
 }
 /* Chevron arrow */
@@ -385,7 +394,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   animation: heroFadeUp 1s 0.7s both;
 }
 .hero-title-accent {
-  background: linear-gradient(90deg, #818cf8, rgba(255,255,255,0.9), #fb7185);
+  background: linear-gradient(90deg, #7CB98B, rgba(255,255,255,0.9), #D4A854);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -434,7 +443,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(251,113,133,0.8);
+  background: rgba(193,122,47,0.9);
   flex-shrink: 0;
 }
 
@@ -466,7 +475,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   width: 500px; height: 120px;
   left: -5%; top: 20%;
   transform: rotate(12deg);
-  background: linear-gradient(90deg, rgba(99,102,241,0.15), transparent);
+  background: linear-gradient(90deg, rgba(45,90,61,0.2), transparent);
   animation-delay: 0s, 0.3s;
 }
 /* Shape 2 — medium, bottom-right, rose */
@@ -474,7 +483,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   width: 420px; height: 100px;
   right: -3%; top: 72%;
   transform: rotate(-15deg);
-  background: linear-gradient(90deg, rgba(244,63,94,0.15), transparent);
+  background: linear-gradient(90deg, rgba(193,122,47,0.18), transparent);
   animation-delay: -4s, 0.5s;
 }
 /* Shape 3 — small, bottom-left, violet */
@@ -482,7 +491,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   width: 260px; height: 70px;
   left: 8%; bottom: 8%;
   transform: rotate(-8deg);
-  background: linear-gradient(90deg, rgba(139,92,246,0.15), transparent);
+  background: linear-gradient(90deg, rgba(124,185,139,0.15), transparent);
   animation-delay: -2s, 0.4s;
 }
 /* Shape 4 — small, top-right, amber */
@@ -490,7 +499,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   width: 180px; height: 50px;
   right: 18%; top: 12%;
   transform: rotate(20deg);
-  background: linear-gradient(90deg, rgba(245,158,11,0.15), transparent);
+  background: linear-gradient(90deg, rgba(212,168,84,0.18), transparent);
   animation-delay: -6s, 0.6s;
 }
 /* Shape 5 — tiny, center-left, cyan */
@@ -498,7 +507,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   width: 130px; height: 35px;
   left: 22%; top: 8%;
   transform: rotate(-25deg);
-  background: linear-gradient(90deg, rgba(6,182,212,0.15), transparent);
+  background: linear-gradient(90deg, rgba(154,91,40,0.15), transparent);
   animation-delay: -8s, 0.7s;
 }
 /* Gradient overlay (top + bottom fade) */
@@ -507,7 +516,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(15,35,64,0.8) 0%, transparent 30%, transparent 70%, rgba(15,35,64,0.6) 100%);
+  background: linear-gradient(to bottom, rgba(20,42,30,0.8) 0%, transparent 30%, transparent 70%, rgba(20,42,30,0.6) 100%);
 }
 
 @keyframes shapeFloat {
@@ -664,11 +673,11 @@ section { padding: 70px 0; }
   border: 3px solid transparent;
   background: conic-gradient(
     from var(--glow-start),
-    #dd7bbb 0deg,
-    #d79f1e 72deg,
-    #5a922c 144deg,
-    #4c7894 216deg,
-    #dd7bbb 360deg
+    #D4A854 0deg,
+    #2D5A3D 72deg,
+    #C17A2F 144deg,
+    #7CB98B 216deg,
+    #D4A854 360deg
   );
   background-attachment: fixed;
   mask-clip: padding-box, border-box;
@@ -832,7 +841,7 @@ section { padding: 70px 0; }
    CTA Banner
    ========================================================================== */
 .cta-banner {
-  background: linear-gradient(135deg, var(--orange) 0%, #D06410 100%);
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-hover) 100%);
   color: var(--white);
   padding: 60px 0;
   text-align: center;
