@@ -361,6 +361,10 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
 }
 .header-phone:hover { color: var(--orange); }
 
+/* Hidden on desktop, shown on mobile */
+.mobile-bottom-cta { display: none; }
+.mobile-nav-cta { display: none; }
+
 /* Mobile Menu */
 .mobile-toggle {
   display: none;
@@ -1174,6 +1178,8 @@ footer {
 /* ==========================================================================
    Responsive
    ========================================================================== */
+
+/* --- Tablet (992px) --- */
 @media (max-width: 992px) {
   .content-wrapper {
     grid-template-columns: 1fr;
@@ -1189,11 +1195,46 @@ footer {
   .bento-1 { grid-column: span 2; grid-row: span 1; }
 }
 
+/* --- Mobile (768px) --- */
 @media (max-width: 768px) {
+  /* Top bar — hide */
   .top-bar { display: none; }
 
+  /* Header — sticky with compact layout */
+  header { position: sticky; top: 0; z-index: 1000; }
+  .header-main { padding: 8px 0; }
+  .logo-img { width: 40px; height: 40px; }
+  .logo-tagline { display: none; }
+  .logo-text { font-size: 1rem; }
+
+  /* Show phone icon in header CTA on mobile */
+  .header-cta { display: flex; align-items: center; gap: 8px; }
+  .header-cta .btn { display: none; }
+  .header-phone {
+    font-size: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .header-phone::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: var(--white);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E") center/contain no-repeat;
+  }
+
+  /* Mobile hamburger toggle */
   .mobile-toggle { display: block; }
 
+  /* Mobile nav — slide-down menu */
   nav {
     display: none;
     position: absolute;
@@ -1202,16 +1243,30 @@ footer {
     right: 0;
     background: var(--cream);
     box-shadow: var(--shadow-lg);
-    padding: 16px;
+    padding: 12px 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   nav.active { display: block; }
   nav ul { flex-direction: column; gap: 0; }
-  nav > ul > li > a { display: flex; padding: 12px 16px; border-radius: 8px; }
+  nav > ul > li > a {
+    display: flex;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    min-height: 48px;
+    align-items: center;
+  }
+  nav > ul > li > a:active {
+    background: rgba(30,58,43,0.12);
+  }
 
+  /* Mobile dropdown menus */
   .dropdown-content {
     position: static;
     box-shadow: none;
-    padding: 8px 0 8px 16px;
+    padding: 4px 0 8px 16px;
     display: none;
     min-width: 0;
     border: none;
@@ -1221,48 +1276,230 @@ footer {
     pointer-events: auto;
     transform: none;
     transition: none;
+    padding-top: 4px;
   }
   .dropdown:hover > .dropdown-content { display: none; }
   .dropdown.active > .dropdown-content { display: block; }
 
   .dropdown-mega {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     min-width: 0;
   }
   .dropdown-areas {
     grid-template-columns: 1fr 1fr;
     min-width: 0;
+    gap: 4px;
+  }
+  .dropdown-areas a {
+    padding: 10px 12px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
   .dropdown-item-icon { display: none; }
-  .dropdown-item { padding: 6px 0; }
-  .dropdown-col-heading { margin-top: 8px; }
+  .dropdown-item {
+    padding: 10px 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .dropdown-item:active { background: rgba(30,58,43,0.06); border-radius: 6px; }
+  .dropdown-col-heading { margin-top: 8px; font-size: 0.8rem; }
 
-  .header-cta .btn { display: none; }
+  /* Mobile CTA in nav */
+  .mobile-nav-cta {
+    display: block;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-200);
+  }
+  .mobile-nav-cta .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    font-size: 1.05rem;
+  }
 
-  .hero { padding: 50px 0; }
-  .hero-trust { gap: 16px; }
+  /* Hero — mobile optimized */
+  .hero {
+    min-height: 70vh;
+    padding: 40px 0 60px;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 7vw, 2.6rem); max-width: 100%; }
+  .hero p { font-size: 1rem; max-width: 100%; }
+  .hero-badge { margin-bottom: 1.25rem; }
+  .hero-badge span { font-size: 0.78rem; }
+  .hero-shapes { display: none; }
+  .hero-trust {
+    gap: 12px;
+    margin-top: 2rem;
+  }
+  .hero-trust-item { font-size: 0.8rem; gap: 6px; }
+  .hero-trust-item svg { width: 16px; height: 16px; }
 
+  /* Page hero — sub-pages */
+  .page-hero { min-height: 50vh; padding: 30px 0; }
+
+  /* Sections — tighter spacing */
+  section { padding: 48px 0; }
+  .section-header { margin-bottom: 2rem; }
+
+  /* Grid layouts — single column */
   .services-grid { grid-template-columns: 1fr; }
-  .features-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .blog-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
 
-  /* Bento grid — mobile: single column */
-  .bento-grid { grid-template-columns: 1fr; }
+  /* Bento grid — mobile */
+  .bento-grid { grid-template-columns: 1fr; gap: 12px; }
   .bento-1 { grid-column: span 1; }
+  .bento-inner { min-height: 12rem; }
 
-  .inline-form {
-    flex-direction: column;
-  }
+  /* Feature items — 2-col grid on mobile */
+  .feature-item { padding: 16px 12px; }
+  .feature-icon { width: 56px; height: 56px; }
+  .feature-icon svg { width: 26px; height: 26px; }
+
+  /* Service cards — compact */
+  .service-card { padding: 24px 20px; }
+  .service-card:hover { transform: none; }
+
+  /* Testimonials — compact */
+  .testimonial-card { padding: 20px; }
+  .testimonial-card:hover { transform: none; }
+
+  /* Blog cards — smaller image */
+  .blog-card-image { height: 160px; }
+  .blog-card-content { padding: 16px; }
+  .blog-card:hover { transform: none; }
+
+  /* CTA banner — compact */
+  .cta-banner { padding: 40px 0; }
+  .cta-banner p { font-size: 1rem; }
+
+  /* Forms */
+  .inline-form { flex-direction: column; }
   .inline-form .form-group { min-width: 100%; }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 16px; /* prevents iOS zoom on focus */
+    padding: 14px 16px;
+  }
 
-  .footer-bottom { flex-direction: column; text-align: center; }
+  /* FAQ — mobile */
+  .faq-question { padding: 16px; font-size: 0.95rem; }
+  .faq-answer-inner { padding: 0 16px 16px; }
+
+  /* Footer — collapsible on mobile */
+  .footer-col h4 {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0;
+  }
+  .footer-col h4::after {
+    content: '+';
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--orange);
+    transition: transform 0.3s;
+  }
+  .footer-col.active h4::after {
+    content: '−';
+  }
+  .footer-col ul,
+  .footer-col p {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .footer-col.active ul,
+  .footer-col.active p {
+    max-height: 500px;
+  }
+  .footer-col:first-child ul,
+  .footer-col:first-child p {
+    max-height: none;
+  }
+  .footer-col:first-child h4::after { display: none; }
+  footer { padding: 40px 0 0; }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px 0;
+  }
+
+  /* Content section — mobile */
+  .content-section { padding: 40px 0; }
+  .content-wrapper { gap: 32px; }
+
+  /* Disable hover transforms on mobile (no hover state) */
+  .area-link:hover { transform: none; }
+
+  /* Sticky bottom CTA bar */
+  .mobile-bottom-cta {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--navy-dark);
+    padding: 12px 16px;
+    gap: 10px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+  }
+  .mobile-bottom-cta a {
+    flex: 1;
+    text-align: center;
+    padding: 14px 12px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .mobile-bottom-cta .mobile-cta-call {
+    background: var(--white);
+    color: var(--navy);
+  }
+  .mobile-bottom-cta .mobile-cta-estimate {
+    background: var(--orange);
+    color: var(--white);
+  }
+  .mobile-bottom-cta svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* Add bottom padding to body so content isn't hidden behind sticky CTA */
+  body { padding-bottom: 76px; }
 }
 
+/* --- Small phone (480px) --- */
 @media (max-width: 480px) {
-  .hero-buttons { flex-direction: column; }
-  .hero-buttons .btn { width: 100%; }
+  .hero h1 { font-size: clamp(1.5rem, 8vw, 2.2rem); }
+  .hero-buttons { flex-direction: column; gap: 10px; }
+  .hero-buttons .btn { width: 100%; padding: 16px; font-size: 1rem; }
+
+  .features-grid { grid-template-columns: 1fr; }
   .areas-grid { grid-template-columns: 1fr 1fr; }
+
+  .container { padding: 0 16px; }
+
+  .bento-inner { min-height: 10rem; }
+  .bento-content { padding: 1rem; }
+  .bento-content h3 { font-size: 1.15rem; }
+  .bento-content p { font-size: 0.85rem; }
+
+  /* CTA banner — full width button */
+  .cta-banner .hero-buttons,
+  .cta-banner .btn { width: 100%; }
 }

@@ -104,6 +104,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Footer accordion on mobile
+  if (window.innerWidth <= 768) {
+    document.querySelectorAll('.footer-col h4').forEach(function(heading) {
+      // Skip the first footer col (company info — always open)
+      if (heading.closest('.footer-col') === document.querySelector('.footer-col')) return;
+
+      heading.addEventListener('click', function() {
+        this.closest('.footer-col').classList.toggle('active');
+      });
+    });
+  }
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (nav && nav.classList.contains('active')) {
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+      }
+    }
+  });
+
   // CRM lead capture — send form data directly to SetMate.ai
   var SETMATE_WEBHOOK = 'https://www.setmate.ai/api/webhooks/website-lead';
   var SETMATE_API_KEY = 'nwgc_lead_2026_sk';
