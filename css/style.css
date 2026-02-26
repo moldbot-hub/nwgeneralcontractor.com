@@ -558,7 +558,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
    Sections
    ========================================================================== */
 section { padding: 70px 0; }
-.section-light { background: var(--gray-50); }
+.section-light { background: var(--gray-100); }
 .section-header {
   text-align: center;
   max-width: 700px;
