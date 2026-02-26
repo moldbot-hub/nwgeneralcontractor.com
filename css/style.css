@@ -400,7 +400,7 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   color: var(--white);
   font-size: clamp(2.2rem, 5.5vw, 3.5rem);
   margin-bottom: 1.25rem;
-  max-width: 700px;
+  max-width: 900px;
   text-shadow: 0 2px 8px rgba(0,0,0,0.4);
   animation: heroFadeUp 1s 0.7s both;
 }
