@@ -63,9 +63,32 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
   border: none;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+/* Colorful glow layer — sits behind button text */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  border-radius: inherit;
+}
+.btn:hover::before {
+  opacity: 0.8;
+}
+/* Outer glow shadow on hover */
+.btn:hover {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
 }
 
 .btn-primary {
@@ -75,8 +98,6 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
 .btn-primary:hover {
   background: var(--orange-hover);
   color: var(--white);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
 }
 
 .btn-outline {
@@ -85,8 +106,9 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
   border: 2px solid var(--white);
 }
 .btn-outline:hover {
-  background: var(--white);
-  color: var(--navy);
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  border-color: rgba(255,255,255,0.6);
 }
 
 .btn-navy {
@@ -96,8 +118,6 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
 .btn-navy:hover {
   background: var(--navy-dark);
   color: var(--white);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
 }
 
 /* ==========================================================================
@@ -621,7 +641,7 @@ section { padding: 70px 0; }
 .cta-banner h2 { color: var(--white); font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin-bottom: 0.75rem; }
 .cta-banner p { color: rgba(255,255,255,0.9); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem; }
 .cta-banner .btn-outline { border-color: var(--white); color: var(--white); }
-.cta-banner .btn-outline:hover { background: var(--white); color: var(--orange); }
+.cta-banner .btn-outline:hover { background: rgba(255,255,255,0.15); color: var(--white); border-color: rgba(255,255,255,0.7); }
 
 /* ==========================================================================
    Service Areas
