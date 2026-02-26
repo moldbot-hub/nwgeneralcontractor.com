@@ -130,17 +130,20 @@ p { margin-bottom: 1rem; color: var(--gray-700); }
   color: var(--white);
   font-size: 0.85rem;
   padding: 8px 0;
+  white-space: nowrap;
 }
 .top-bar .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+  flex-wrap: nowrap;
 }
 .top-bar a { color: var(--white); white-space: nowrap; }
 .top-bar a:hover { color: var(--orange); }
-.top-bar-left { display: flex; gap: 20px; align-items: center; white-space: nowrap; }
-.top-bar-right { display: flex; gap: 20px; align-items: center; white-space: nowrap; }
+.top-bar span { white-space: nowrap; }
+.top-bar-left { display: flex; gap: 20px; align-items: center; white-space: nowrap; flex-shrink: 0; }
+.top-bar-right { display: flex; gap: 20px; align-items: center; white-space: nowrap; flex-shrink: 0; }
 
 header {
   background: var(--cream);
