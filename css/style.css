@@ -343,6 +343,8 @@ nav > ul > li > a:hover, nav > ul > li > a.active {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .header-phone {
   font-weight: 700;
