@@ -255,7 +255,7 @@ nav a:hover, nav a.active {
 .hero {
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
   color: var(--white);
-  padding: 100px 0;
+  padding: 160px 0;
   position: relative;
   overflow: hidden;
   background-size: cover;
@@ -305,10 +305,14 @@ nav a:hover, nav a.active {
 .page-hero {
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
   color: var(--white);
-  padding: 120px 0;
+  padding: 180px 0;
   text-align: center;
   background-size: cover;
   background-position: center;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .page-hero h1 { color: var(--white); margin-bottom: 0.5rem; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
 .page-hero p { color: rgba(255,255,255,0.95); max-width: 600px; margin: 0 auto; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
