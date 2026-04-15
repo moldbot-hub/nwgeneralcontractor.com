@@ -151,12 +151,20 @@
               <input type="text" id="name" name="name" required placeholder="John Smith">
             </div>
             <div class="form-group">
-              <label for="phone">Phone Number *</label>
-              <input type="tel" id="phone" name="phone" required placeholder="(425) 555-0000">
+              <label for="phone">Phone Number <span style="font-weight:normal;color:var(--gray-600);font-size:0.85em;">(optional)</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="(425) 555-0000">
             </div>
             <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="john@example.com">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group" style="background:#f7f7f7;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;">
+              <label style="display:flex;align-items:flex-start;gap:10px;font-weight:normal;cursor:pointer;">
+                <input type="checkbox" id="sms_optin" name="sms_optin" value="yes" style="margin-top:4px;flex-shrink:0;">
+                <span style="font-size:0.85rem;color:var(--gray-700);line-height:1.5;">
+                  By checking this box, I agree to receive SMS text messages from NW General Contractor LLC at the phone number provided above regarding my project inquiry, appointment confirmations, estimates, and follow-up communications. Message frequency varies. Message and data rates may apply. Reply <strong>STOP</strong> to unsubscribe or <strong>HELP</strong> for help. Your mobile information will not be sold or shared with third parties for promotional or marketing purposes. See our <a href="/privacy.html">Privacy Policy</a> for details.
+                </span>
+              </label>
             </div>
             <div class="form-group">
               <label for="service">Type of Project</label>
@@ -268,7 +276,7 @@
       <li><a href="contact.html">Request a Free Estimate</a></li>
       <li>Everett, WA</li><li>Serving all of Snohomish County</li>
     </ul></div>
-  </div><div class="footer-bottom"><span>&copy; 2026 NW General Contractor LLC. All rights reserved.</span><span>Licensed General Contractor | Everett, WA</span></div></div></footer>
+  </div><div class="footer-bottom"><span>&copy; 2026 NW General Contractor LLC. All rights reserved.</span><span><a href="privacy.html" style="color:inherit;">Privacy Policy</a> | Licensed General Contractor | Everett, WA</span></div></div></footer>
 
   <script src="js/tracking.js"></script>
 <script src="js/main.js"></script>
