@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://nwgeneralcontractor.com/sitemap.xml
+Sitemap: https://www.nwgeneralcontractor.com/sitemap.xml
