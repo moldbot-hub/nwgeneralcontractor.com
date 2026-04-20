@@ -941,12 +941,17 @@ section { padding: 70px 0; }
   border-radius: 6px;
   padding: 14px 16px;
 }
-.sms-optin-checkbox {
+.form-group input.sms-optin-checkbox,
+input.sms-optin-checkbox {
   width: 18px;
+  min-width: 18px;
   height: 18px;
+  padding: 0;
   margin-top: 3px;
   flex-shrink: 0;
   cursor: pointer;
+  border: 1px solid var(--gray-400, #999);
+  background: #fff;
 }
 .sms-optin-label {
   display: block;
