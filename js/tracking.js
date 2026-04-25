@@ -1,3 +1,15 @@
+// Google Analytics (GA4) — Measurement ID: G-22KRBSFPDX
+(function() {
+     var gtagScript = document.createElement('script');
+     gtagScript.async = true;
+     gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-22KRBSFPDX';
+     document.head.appendChild(gtagScript);
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+     gtag('config', 'G-22KRBSFPDX');
+})();
+
 /* ==========================================================================
    SetMate Visitor Tracking — Captures referrer, UTM, and page visits
    ========================================================================== */
