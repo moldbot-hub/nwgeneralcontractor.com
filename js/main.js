@@ -131,6 +131,21 @@ document.addEventListener('DOMContentLoaded', function() {
   var SETMATE_API_KEY = 'nwgc_lead_2026_sk';
 
   document.querySelectorAll('form[action*="formspree.io"], form.contact-form').forEach(function(form) {
+    // A2P 10DLC SMS consent — inject an optional opt-in if the form lacks one.
+    // (contact.html ships a static sms_optin block, so it is skipped here.)
+    if (!form.querySelector('[name="sms_optin"], [name="sms_consent"]')) {
+      var smsLabel = document.createElement('label');
+      smsLabel.style.cssText = 'display:flex;gap:8px;align-items:flex-start;font-size:0.8rem;color:#555;line-height:1.45;margin:0 0 14px;font-weight:400;cursor:pointer;';
+      var smsCb = document.createElement('input');
+      smsCb.type = 'checkbox'; smsCb.name = 'sms_consent'; smsCb.value = 'yes';
+      smsCb.style.cssText = 'width:auto;margin-top:3px;flex:0 0 auto;';
+      var smsSpan = document.createElement('span');
+      smsSpan.innerHTML = 'I agree to receive SMS text messages from NW Premier General Contractor LLC (dba NW General Contractor) at the phone number provided regarding my project inquiry, appointment confirmations, estimates, and follow-up communications. Message frequency varies. Message &amp; data rates may apply. Reply <strong>STOP</strong> to unsubscribe or <strong>HELP</strong> for help. Consent is not a condition of purchase. We will not share your mobile information with third parties for promotional or marketing purposes.';
+      smsLabel.appendChild(smsCb); smsLabel.appendChild(smsSpan);
+      var smsBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+      if (smsBtn && smsBtn.parentNode) { smsBtn.parentNode.insertBefore(smsLabel, smsBtn); }
+      else { form.appendChild(smsLabel); }
+    }
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
