@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // CRM lead capture — send form data directly to SetMate.ai
-  var SETMATE_WEBHOOK = 'https://www.setmate.ai/api/webhooks/website-lead';
-  var SETMATE_API_KEY = 'nwgc_lead_2026_sk';
+  var SETMATE_WEBHOOK = 'https://contractormate.ai/api/public/contractor-lead';
+  var SETMATE_API_KEY = 'cm_lead_8b0148dfb9275ea8d8';
 
   document.querySelectorAll('form[action*="formspree.io"], form.contact-form').forEach(function(form) {
     // A2P 10DLC SMS consent — inject an optional opt-in if the form lacks one.
