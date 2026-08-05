@@ -131,6 +131,15 @@ document.addEventListener('DOMContentLoaded', function() {
   var SETMATE_API_KEY = 'cm_lead_8b0148dfb9275ea8d8';
 
   document.querySelectorAll('form[action*="formspree.io"], form.contact-form').forEach(function(form) {
+    // Honeypot. Off-screen rather than display:none, which some bots skip.
+    if (!form.querySelector('[name="company_website"]')) {
+      var hp = document.createElement('input');
+      hp.type = 'text'; hp.name = 'company_website'; hp.tabIndex = -1;
+      hp.setAttribute('autocomplete', 'off'); hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
+      form.appendChild(hp);
+    }
+
     // A2P 10DLC SMS consent — inject an optional opt-in if the form lacks one.
     // (contact.html ships a static sms_optin block, so it is skipped here.)
     if (!form.querySelector('[name="sms_optin"], [name="sms_consent"]')) {
@@ -173,7 +182,20 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (path.indexOf('roofing') !== -1 || path.indexOf('roof') !== -1) detectedService = 'roofing';
       }
 
+      // One id per form element, minted on first submit and REUSED on every retry.
+      // Without it the server mints a fresh uuid per request, so its dedup never engages
+      // for real traffic: a visitor who clicks Submit twice (which both error paths below
+      // invite, by re-enabling the button) gets one contact but two opportunities and two
+      // owner alerts.
+      if (!form._cmRequestId) {
+        form._cmRequestId = (window.crypto && window.crypto.randomUUID)
+          ? window.crypto.randomUUID()
+          : 'r-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+      }
+
       var payload = {
+        requestId: form._cmRequestId,
+        sms_consent: (data.sms_optin || data.sms_consent) ? 'yes' : 'no',
         name: data.name || '',
         email: data.email || '',
         phone: data.phone || '',
@@ -188,7 +210,8 @@ document.addEventListener('DOMContentLoaded', function() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': SETMATE_API_KEY
+          'x-api-key': SETMATE_API_KEY,
+          'idempotency-key': form._cmRequestId
         },
         body: JSON.stringify(payload)
       }).then(function(res) {
