@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
       smsCb.type = 'checkbox'; smsCb.name = 'sms_consent'; smsCb.value = 'yes';
       smsCb.style.cssText = 'width:auto;margin-top:3px;flex:0 0 auto;';
       var smsSpan = document.createElement('span');
-      smsSpan.innerHTML = 'I agree to receive SMS text messages from NW Premier General Contractor LLC (dba NW General Contractor) at the phone number provided regarding my project inquiry, appointment confirmations, estimates, and follow-up communications. Message frequency varies. Message &amp; data rates may apply. Reply <strong>STOP</strong> to unsubscribe or <strong>HELP</strong> for help. Consent is not a condition of purchase. We will not share your mobile information with third parties for promotional or marketing purposes.';
+      smsSpan.innerHTML = 'I agree to receive SMS text messages from NW Style Homes 1 LLC (dba NW General Contractor) at the phone number provided regarding my project inquiry, appointment confirmations, estimates, and follow-up communications. Message frequency varies. Message &amp; data rates may apply. Reply <strong>STOP</strong> to unsubscribe or <strong>HELP</strong> for help. Consent is not a condition of purchase. We will not share your mobile information with third parties for promotional or marketing purposes.';
       smsLabel.appendChild(smsCb); smsLabel.appendChild(smsSpan);
       var smsBtn = form.querySelector('button[type="submit"], input[type="submit"]');
       if (smsBtn && smsBtn.parentNode) { smsBtn.parentNode.insertBefore(smsLabel, smsBtn); }
