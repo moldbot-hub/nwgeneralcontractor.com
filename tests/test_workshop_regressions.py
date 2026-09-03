@@ -47,7 +47,9 @@ def contrast(first: str, second: str) -> float:
 class WorkshopRegressionTests(unittest.TestCase):
     def test_shared_header_logo_has_real_transparency(self):
         logo = Image.open(ROOT / "images" / "logo-sm.png")
+        master = Image.open(ROOT / "images" / "logo.png").convert("RGBA")
         self.assertEqual("RGBA", logo.mode)
+        self.assertEqual(master.size, logo.size)
         corners = [
             logo.getpixel(point)[3]
             for point in (
@@ -59,6 +61,14 @@ class WorkshopRegressionTests(unittest.TestCase):
         ]
         self.assertEqual([0, 0, 0, 0], corners)
         self.assertGreater(max(pixel[3] for pixel in logo.get_flattened_data()), 240)
+        changed_visible_pixels = [
+            index
+            for index, (source, output) in enumerate(
+                zip(master.get_flattened_data(), logo.get_flattened_data())
+            )
+            if output[3] and source[:3] != output[:3]
+        ]
+        self.assertEqual([], changed_visible_pixels[:1])
 
         self.assertEqual(48, len(HTML_PAGES))
         for page in HTML_PAGES:
