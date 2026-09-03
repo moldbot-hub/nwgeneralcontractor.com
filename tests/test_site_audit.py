@@ -19,6 +19,7 @@ class ImageLoadingPolicyTests(unittest.TestCase):
         self.assertTrue(is_intentionally_eager_image('/assets/hero-poster.jpg', {'hero-media__poster'}))
         self.assertFalse(is_intentionally_eager_image('/images/project.jpg', {'project-photo'}))
         self.assertFalse(is_intentionally_eager_image('/assets/poster.jpg', {'hero-media'}))
+        self.assertFalse(is_intentionally_eager_image('/images/catalogo.jpg', set()))
 
 
 if __name__ == '__main__':

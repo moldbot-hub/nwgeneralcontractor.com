@@ -180,7 +180,8 @@ def resolve_local(page_rel: str, value: str) -> tuple[str | None, str]:
 
 def is_intentionally_eager_image(src: str, class_names: set[str]) -> bool:
     """Return whether a known above-fold image may omit loading=lazy."""
-    return "logo" in src.lower() or "hero-media__poster" in class_names
+    filename = posixpath.basename(urlsplit(src).path).lower()
+    return filename in {"logo.png", "logo-sm.png"} or "hero-media__poster" in class_names
 
 
 def internal_targets(source: str, rel: str) -> list[str]:
