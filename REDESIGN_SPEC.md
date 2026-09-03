@@ -1,0 +1,30 @@
+# REDESIGN: nwgeneralcontractor.com ("Workshop" identity), in place, static HTML/CSS/JS
+
+Repo: C:\moldbot-hub\websites\nwgeneralcontractor, branch redesign/workshop-2026-09 (checked out). Plain static site deployed by Vercel from main. Do NOT git commit or push. No network access: self-contained assets only (no CDN, no Google Fonts; system font stacks).
+
+## Non-negotiables
+- Keep EVERY existing URL exactly (48 pages: index, about, contact, portfolio, privacy, 404, contractor-disclosure, services/*.html x17, areas/*.html x9, blog/index.html + 14 posts) and all their text content, FAQs, JSON-LD facts and internal links. You are changing layout, CSS, markup structure and imagery treatment, not the facts. Blog posts: restyle via the shared header/footer/CSS only; do not rewrite article bodies.
+- Keep the footer legal line on every page: "© 2026 NW Style Homes 1 LLC, doing business as NW General Contractor · Washington State registered general contractor NWSTYSH768DA · Contractor disclosure statement" (link to /contractor-disclosure.html), the top-bar "Registered, bonded and insured · WA contractor NWSTYSH768DA" link, the JSON-LD legalName/identifier, and the RCW 18.27.114 disclosure page content.
+- Keep js/main.js lead-form logic (POST to contractormate.ai with x-api-key and idempotency-key, the SMS consent text) and js/tracking.js (GA4 G-22KRBSFPDX). You may restyle the form markup but the field names, ids the script relies on, and the consent behaviour must keep working; read main.js first and preserve every selector it uses.
+- Phone (425) 286-5639 everywhere it is today. No stock or AI-looking hero photos: replace the 17 AI-generated hero JPGs with an SVG "blueprint" system (see below); keep logo.png/logo-sm.png; keep david-headshot.jpg only where about.html uses it today.
+
+## Identity: "Workshop" (must look nothing like a soft green-and-gold contractor template)
+- Palette: charcoal #141414 ground for the header, hero and footer; concrete #e9e6df as the page ground; paper white #fbfaf7 cards; safety orange #ff6a13 as the single accent (buttons, active states, the dimension lines); steel blue-grey #7a8a94 for secondary text; ink #1c1c1c body text on light sections.
+- Type: condensed bold grotesk for display from the system stack ("Bahnschrift", "Arial Narrow", "Franklin Gothic Medium", Impact-free fallback: Arial, sans-serif) in uppercase with tight tracking for H1/H2; body "Segoe UI", Roboto, Helvetica, Arial at 17px/1.55; monospace ("Cascadia Mono", Consolas, monospace) for small dimension labels and the registration number.
+- Blueprint motif: an SVG background layer of fine grid lines (12px minor, 96px major) at 8% opacity, dimension lines with arrowheads and small mono labels framing the hero, and per-service isometric line drawings you draw in SVG (an ADU footprint, a kitchen plan, a bathroom plan, a deck, a roof section, a foundation section, a garage, an addition, siding courses, a window/door frame, a fence run, flooring planks, a patio, a paint swatch grid, a carpentry joint, outdoor kitchen, whole-home plan). Each service page hero uses its drawing on the charcoal ground with a subtle draw-on animation (stroke-dashoffset) when it enters the viewport; under prefers-reduced-motion it renders complete.
+- Layering: hero has three planes (grid, dimension frame, drawing) moving at slightly different rates on scroll (transform only), disabled under prefers-reduced-motion.
+- Home page order: sticky charcoal nav (logo, Services, Areas, Portfolio, Blog, Contact, orange "Call (425) 286-5639"); hero leading with ADU work (the top search demand): H1 "ADUs, additions and remodels built to Snohomish County code", one-line promise (registered, bonded $30,000, insured $1,000,000, permits handled), two buttons (Call, Request an estimate); a "what we build" grid of 17 service cards with their drawings that lift 4px on hover and reveal on scroll; a process rail (Site visit, Fixed-scope proposal with the state disclosure, Permits, Build, Walkthrough) with a progress line that fills as you scroll; a "where we build" band listing the 9 area pages as chips; the registration/bond/insurance badge block (facts only); recent guides from the blog; the estimate form; footer.
+- Service pages: hero with the drawing, a two-column body (content left, sticky estimate card right on desktop, stacked on mobile), the FAQ as details/summary, related services and areas links, closing call block.
+- Area pages: same structure with an SVG map pin block instead of a drawing.
+- Portfolio: keep the page but make it honest: a "project photos coming" grid of drawing tiles with the line "Real job photos are being added; call for references" — no placeholder photos.
+- Mobile: bottom sticky call bar (tel link + "Estimate" anchor) on screens under 720px; nav collapses to a single-row scrollable link strip (no hamburger JS needed).
+- Motion rules: transform/opacity only, 350-450ms reveals via IntersectionObserver, no layout shift, no scroll hijack, respect prefers-reduced-motion.
+- Performance: one css/style.css (< 45 KB), js/main.js untouched except selectors you must keep, a small js/ui.js (< 8 KB) for reveals/parallax/counters; width/height on every img; lazy-load below the fold; Lighthouse mobile target >= 90.
+
+## Verification (local only)
+1. Python link checker over the repo: every internal href/src resolves; zero broken links.
+2. Every JSON-LD block parses; the GeneralContractor block on every page still carries name, legalName "NW Style Homes 1 LLC" and identifier NWSTYSH768DA.
+3. grep: every *.html contains NWSTYSH768DA and the disclosure link; zero occurrences of "NW General Contractor LLC" or "NW Premier".
+4. Confirm main.js selectors: list every querySelector/getElementById in js/main.js and show that each target still exists in the new markup.
+5. Print sizes of css/js and the list of images remaining in images/ (the 17 hero JPGs should be deleted and no HTML should reference them).
+6. Write REDESIGN_NOTES.md (what changed, what to verify in a browser, open items). Reply with the changed-file list, verification outputs and open issues.
