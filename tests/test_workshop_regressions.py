@@ -1,3 +1,4 @@
+import hashlib
 import re
 import struct
 import unittest
@@ -61,6 +62,12 @@ class WorkshopRegressionTests(unittest.TestCase):
         ]
         self.assertEqual([0, 0, 0, 0], corners)
         self.assertGreater(max(pixel[3] for pixel in logo.get_flattened_data()), 240)
+        alpha = bytes(pixel[3] for pixel in logo.get_flattened_data())
+        self.assertEqual(69_469, sum(value > 0 for value in alpha))
+        self.assertEqual(
+            "9cbfa0d24f284c9422ce1212df58494b97600ded7b000d9c620e2f150df2b910",
+            hashlib.sha256(alpha).hexdigest(),
+        )
         changed_visible_pixels = [
             index
             for index, (source, output) in enumerate(
