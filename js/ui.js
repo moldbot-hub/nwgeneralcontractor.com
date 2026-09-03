@@ -128,4 +128,19 @@
       layer.style.transform = '';
     });
   });
+
+  window.addEventListener('load', function () {
+    var connection = navigator.connection;
+    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches || window.innerWidth < 720 || (connection && connection.saveData)) return;
+    var video = document.querySelector('.hero-media__video');
+    if (!video) return;
+    function showVideo() { video.classList.add('is-playing'); }
+    video.addEventListener('canplay', showVideo, { once: true });
+    var source = document.createElement('source');
+    source.src = '/assets/hero.mp4';
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    video.load();
+    video.play().then(showVideo).catch(function () {});
+  });
 })();

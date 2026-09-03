@@ -62,6 +62,11 @@ section{padding:clamp(4rem,7vw,7rem) 0;position:relative}
 
 /* Three-plane blueprint heroes */
 .workshop-hero,.page-hero{overflow:hidden;background:var(--charcoal);color:var(--paper);padding:clamp(4rem,8vw,7.5rem) 0;border-bottom:4px solid var(--orange)}
+.hero-media{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.hero-media::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(20,20,20,.72) 0%,rgba(20,20,20,.72) 55%,rgba(20,20,20,.55) 100%)}
+.hero-media__poster,.hero-media__video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.hero-media__poster{z-index:0}.hero-media__video{z-index:1;opacity:0;transition:opacity 600ms ease}.hero-media__video.is-playing{opacity:1}
+.home-hero .hero-layout{position:relative;z-index:1}.home-hero .blueprint-stage{background:rgba(24,24,24,.4)}
 .hero-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);align-items:center;gap:clamp(2rem,6vw,6rem);min-height:470px}
 .hero-copy{position:relative;z-index:3}.workshop-hero h1,.page-hero h1{color:var(--paper);max-width:900px}.workshop-hero p,.page-hero p{max-width:680px;color:#b7c0c5;font-size:clamp(1rem,1.8vw,1.22rem);margin-top:1.4rem}.home-hero h1{font-size:clamp(3rem,7vw,6.7rem)}
 .hero-promise{font:600 .9rem/1.65 var(--mono)!important;color:#d5d5d1!important;border-left:3px solid var(--orange);padding-left:1rem}
@@ -139,4 +144,5 @@ footer{background:var(--charcoal);color:var(--paper);padding:4rem 0 1.5rem;borde
   .mobile-bottom-cta{position:fixed;left:0;right:0;bottom:0;z-index:1200;display:grid;grid-template-columns:1fr 1fr;height:58px;box-shadow:0 -6px 20px rgba(0,0,0,.2)}.mobile-bottom-cta a{display:flex;align-items:center;justify-content:center;text-decoration:none;font:800 .78rem var(--mono);text-transform:uppercase}.mobile-cta-call{background:var(--charcoal);color:var(--paper)}.mobile-cta-estimate{background:var(--orange);color:#111}.mobile-bottom-cta svg{width:17px;height:17px;margin-right:.45rem}
 }
 @media (max-width:430px){.logo-text{max-width:115px}.header-call{max-width:112px}.services-grid,.service-grid{display:block}.service-card{margin-bottom:1px}.footer-services{columns:1}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none;transition-duration:.01ms!important}.blueprint-stroke{stroke-dashoffset:0!important}.blueprint-grid,.dimension-frame,.blueprint-drawing{transform:none!important}}
+@media (max-width:719px){.hero-media__video{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none;transition-duration:.01ms!important}.blueprint-stroke{stroke-dashoffset:0!important}.blueprint-grid,.dimension-frame,.blueprint-drawing{transform:none!important}.hero-media__video{display:none}}
