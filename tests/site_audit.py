@@ -178,6 +178,11 @@ def resolve_local(page_rel: str, value: str) -> tuple[str | None, str]:
     return target, unquote(split.fragment)
 
 
+def is_intentionally_eager_image(src: str, class_names: set[str]) -> bool:
+    """Return whether a known above-fold image may omit loading=lazy."""
+    return "logo" in src.lower() or "hero-media__poster" in class_names
+
+
 def internal_targets(source: str, rel: str) -> list[str]:
     result: set[str] = set()
     for _tag, value, _attrs in collect(source).refs:
@@ -415,7 +420,10 @@ def verify() -> int:
             if not re.search(r"\bwidth=[\"']\d+[\"']", attrs, re.I) or not re.search(r"\bheight=[\"']\d+[\"']", attrs, re.I):
                 errors.append(f"{rel}: img missing numeric width/height")
             src_match = re.search(r"\bsrc=[\"']([^\"']+)", attrs, re.I)
-            if src_match and "logo" not in src_match.group(1) and not re.search(r"\bloading=[\"']lazy[\"']", attrs, re.I):
+            src = src_match.group(1) if src_match else ""
+            class_match = re.search(r"\bclass=[\"']([^\"']*)", attrs, re.I)
+            class_names = set(class_match.group(1).split()) if class_match else set()
+            if src and not is_intentionally_eager_image(src, class_names) and not re.search(r"\bloading=[\"']lazy[\"']", attrs, re.I):
                 errors.append(f"{rel}: below-fold img missing loading=lazy")
 
     if broken:

@@ -3,6 +3,8 @@ import struct
 import unittest
 from pathlib import Path
 
+from PIL import Image
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CSS = (ROOT / "css" / "style.css").read_text(encoding="utf-8")
@@ -43,6 +45,29 @@ def contrast(first: str, second: str) -> float:
 
 
 class WorkshopRegressionTests(unittest.TestCase):
+    def test_shared_header_logo_has_real_transparency(self):
+        logo = Image.open(ROOT / "images" / "logo-sm.png")
+        self.assertEqual("RGBA", logo.mode)
+        corners = [
+            logo.getpixel(point)[3]
+            for point in (
+                (0, 0),
+                (logo.width - 1, 0),
+                (0, logo.height - 1),
+                (logo.width - 1, logo.height - 1),
+            )
+        ]
+        self.assertEqual([0, 0, 0, 0], corners)
+        self.assertGreater(max(pixel[3] for pixel in logo.get_flattened_data()), 240)
+
+        self.assertEqual(48, len(HTML_PAGES))
+        for page in HTML_PAGES:
+            self.assertIn(
+                'src="/images/logo-sm.png"',
+                page.read_text(encoding="utf-8"),
+                page,
+            )
+
     def test_sub_900_layout_is_static_and_has_no_reserved_height(self):
         mobile = block_after(CSS, "@media (max-width:900px)")
         compact = re.sub(r"\s+", "", mobile)
