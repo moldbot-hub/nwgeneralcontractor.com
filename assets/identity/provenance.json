@@ -1,0 +1,36 @@
+{
+  "domain": "nwgeneralcontractor.com",
+  "provider": "OpenArt",
+  "model": "gpt-image-2",
+  "quality": "high",
+  "resolution_tier": "4k",
+  "resolution_note": "OpenArt 4K locked 4:3 preset reports 2688 x 2016 pixels; actual output dimensions are preserved.",
+  "source_dimensions": {
+    "width": 2688,
+    "height": 2016
+  },
+  "history_id": "FFJuu0PyD38h66ct0pbT",
+  "resource_id": "Uqf2WUNbkPSIgHcno1or",
+  "source_url": "https://cdn.openart.ai/openart-ai/production/2026-09/create-image/user_37Fdq0jFWGlym8xfBCle7vGs0Z9/gpt-image-2-1_1788626339509_13dfde26.png",
+  "generated_at": "2026-09-05T16:37:07.112103+00:00",
+  "theme": "Architectural craft / charcoal bronze",
+  "prompt": "Create a premium editorial website hero image. Art direction: Architectural craft / charcoal bronze. Subject: Beautiful contemporary Northwest home workshop-to-living-space connection, warm natural fir beams, charcoal metal, stone and broad daylight, finely resolved architectural craft and tactile honest materials, no workers. Outstanding material realism, sophisticated composition, natural optical perspective, carefully controlled lighting and tactile fine detail. Conceptual illustrative scene, not a named real property or completed customer project. No people, faces, readable text, numerals, logos, watermarks, street addresses, license plates, branded products or fake credentials. Horizontal landscape 4:3 composition, central crop-safe focal point with breathing room for responsive use. Avoid collage borders, excessive HDR, plastic CGI sheen and generic stock-photo staging.",
+  "kind": "AI-generated illustration",
+  "caption": "Illustrative concept; not a completed customer project.",
+  "derivatives": {
+    "hero-small.webp": 66470,
+    "hero.webp": 344150,
+    "og.jpg": 276839
+  },
+  "motion": {
+    "provider": "OpenArt",
+    "model": "byte-plus-seedance-2-5",
+    "resolution": "1080p",
+    "source_duration_seconds": 5,
+    "history_id": "aQa3kapPZoDtWud5jXBz",
+    "resource_id": "LYXXsgBGZqfldsPsf1gg",
+    "source_url": "https://cdn.openart.ai/openart-ai/production/2026-09/create-video/user_37Fdq0jFWGlym8xfBCle7vGs0Z9/cgt-20260906004147-fkxsz_1788626693518_9a851993.mp4",
+    "derivative_bytes": 1376181,
+    "processing": "FFmpeg silent forward/reverse loop, H.264, 1280 wide, faststart"
+  }
+}

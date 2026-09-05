@@ -76,37 +76,23 @@ def contrast(first, second):
 
 
 class HeroMediaTests(unittest.TestCase):
-    def test_home_hero_starts_with_an_accessible_source_free_media_layer(self):
+    def test_home_hero_starts_with_accessible_poster_and_optional_motion(self):
         parser = DocumentParser()
         parser.feed((ROOT / "index.html").read_text(encoding="utf-8"))
         parser.close()
-
-        home_hero = next(element for element in walk(parser.root) if element.tag == "section" and "home-hero" in classes(element))
-        media = home_hero.children[0]
-        self.assertEqual((media.tag, classes(media), media.attrs.get("aria-hidden")), ("div", {"hero-media"}, "true"))
-        self.assertEqual([child.tag for child in media.children], ["img", "video"])
-
-        poster, video = media.children
-        self.assertEqual(classes(poster), {"hero-media__poster"})
-        self.assertEqual(poster.attrs.get("src"), "/assets/hero-poster.jpg")
-        self.assertEqual(poster.attrs.get("srcset"), "/assets/hero-poster-640.jpg 640w, /assets/hero-poster.jpg 1280w")
-        self.assertEqual(poster.attrs.get("sizes"), "100vw")
-        self.assertEqual(poster.attrs.get("width"), "1280")
-        self.assertEqual(poster.attrs.get("height"), "720")
-        self.assertEqual(poster.attrs.get("alt"), "")
-        self.assertEqual(poster.attrs.get("decoding"), "async")
-        self.assertEqual(poster.attrs.get("fetchpriority"), "low")
-
-        self.assertEqual(classes(video), {"hero-media__video"})
-        for attribute in ("muted", "loop", "playsinline"):
-            self.assertIn(attribute, video.attrs)
+        hero = next(e for e in walk(parser.root) if e.tag == "section" and "home-hero" in classes(e))
+        image = next(e for e in walk(hero) if e.tag == "img" and "/assets/identity/hero.webp" in e.attrs.get("src", ""))
+        self.assertTrue(image.attrs.get("alt"))
+        self.assertEqual(image.attrs.get("fetchpriority"), "high")
+        self.assertEqual(image.attrs.get("width"), "1600")
+        self.assertTrue(any(e.tag == "figcaption" for e in walk(hero)))
+        video = next(e for e in walk(hero) if e.tag == "video")
+        self.assertNotIn("src", video.attrs)
         self.assertEqual(video.attrs.get("preload"), "none")
-        self.assertEqual(video.attrs.get("poster"), "/assets/hero-poster.jpg")
-        self.assertEqual(video.attrs.get("width"), "1280")
-        self.assertEqual(video.attrs.get("height"), "720")
+        self.assertIn("muted", video.attrs)
+        self.assertIn("playsinline", video.attrs)
         self.assertEqual(video.attrs.get("aria-hidden"), "true")
-        self.assertEqual(video.attrs.get("tabindex"), "-1")
-        self.assertFalse(any(element.tag == "source" for element in walk(video)))
+        self.assertTrue(any(e.tag == "button" and "scene" in e.attrs.get("aria-label", "") for e in walk(hero)))
 
     def test_media_layer_is_behind_content_and_video_respects_css_preferences(self):
         css = (ROOT / "css" / "style.css").read_text(encoding="utf-8")
