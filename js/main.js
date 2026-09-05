@@ -202,7 +202,8 @@ document.addEventListener('DOMContentLoaded', function() {
         message: data.message || '',
         service: detectedService,
         city: data.city || '',
-        source: window.location.pathname,
+        // Identify the originating website; tracking retains the visited paths.
+        source: window.location.hostname.replace(/^www\./, ''),
         tracking: window._smTracking ? window._smTracking.getData() : null
       };
 
