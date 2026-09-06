@@ -154,7 +154,7 @@ class WorkshopRegressionTests(unittest.TestCase):
         compact = re.sub(r"\s+", "", CSS).lower()
         for token in (
             "--charcoal:#161616", "--concrete:#e7e4dc", "--paper:#fbfaf7",
-            "--ink:#1c1c1c", "--steel:#6f7f89", "--steel-light:#b8c1c5",
+            "--ink:#1c1c1c", "--steel:#586873", "--steel-light:#b8c1c5",
             "--orange:#ff6a13", "--orange-text:#a94000", "--bone:#f4f1ea",
         ):
             self.assertIn(token, compact)
