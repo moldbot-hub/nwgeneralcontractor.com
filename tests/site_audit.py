@@ -574,7 +574,7 @@ def verify() -> int:
     css_path = ROOT / "css" / "style.css"
     ui_path = ROOT / "js" / "ui.js"
     css = css_path.read_text(encoding="utf-8")
-    for token in ("#161616", "#e7e4dc", "#fbfaf7", "#ff6a13", "#a94000", "#6f7f89", "#b8c1c5", "#1c1c1c", "prefers-reduced-motion"):
+    for token in ("#161616", "#e7e4dc", "#fbfaf7", "#ff6a13", "#a94000", "#586873", "#b8c1c5", "#1c1c1c", "prefers-reduced-motion"):
         if token not in css:
             errors.append(f"css/style.css: required token {token} missing")
     for css_file in (ROOT / "css").rglob("*.css"):
