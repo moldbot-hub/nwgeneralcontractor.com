@@ -162,3 +162,5 @@ footer{padding:var(--s8) 0 var(--s5);border-top:2px solid var(--orange);backgrou
 }
 @media (max-width:430px){.logo-text{max-width:112px}.header-call{max-width:106px}.footer-services{columns:1}.credentials-grid{grid-template-columns:1fr}.credential-card+.credential-card{border-left:0;border-top:1px solid var(--line)}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.blueprint-stroke{stroke-dashoffset:0!important}.blueprint-grid,.dimension-frame,.blueprint-drawing{transform:none!important}}
+
+@media (max-width:480px){.hero-buttons{flex-direction:column}.hero-buttons .btn{width:100%;flex:none}}
