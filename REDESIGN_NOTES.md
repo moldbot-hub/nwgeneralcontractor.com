@@ -1,54 +1,142 @@
 # Workshop Redesign Notes
 
+## Outcome
+
+The 48-page static site now uses the Workshop identity from `DESIGN.md`: charcoal drawing-board surfaces, concrete and paper content grounds, safety-orange construction marks, steel secondary text, square geometry, hairline rules, local trade typography, and blueprint drawings. The retired generated-identity layer is gone.
+
+The worktree remains on `design/workshop-deslop-2026-09`. Nothing was committed, pushed, deployed, or submitted to a lead endpoint.
+
 ## What changed
 
-- Rebuilt all 48 existing HTML routes in place around a charcoal, concrete, paper-white, safety-orange, and steel Workshop design system.
-- Replaced the site-wide header and footer with a sticky charcoal navigation system, exact registration top bar, complete service/area link sets, the required legal line, and a two-action mobile call bar.
-- Reworked the homepage into the required order: ADU-led hero, 17-service drawing grid, five-step process rail, nine-area band, registration/bond/insurance facts, recent guides, and estimate form.
-- Added three-plane SVG blueprint heroes: a 12 px minor / 96 px major grid, orange dimension frame, and 17 distinct service drawings. Area pages use a map-pin drawing.
-- Reworked service and area templates into content plus sticky-estimate layouts on desktop, stacked layouts on mobile, and converted service FAQs to native `details` / `summary` elements without changing their wording.
-- Kept blog article-body markup unchanged and restyled it only through the shared chrome and stylesheet.
-- Replaced the portfolio placeholders with blueprint drawing tiles and the statement: “Real job photos are being added; call for references.”
-- Added `js/ui.js` for 400 ms reveal motion, blueprint draw-on, three-rate transform-only hero parallax, process progress, credential counters, and FAQ synchronization. Reduced-motion users receive the completed static state.
-- Kept `js/main.js` and `js/tracking.js` byte-for-byte unchanged, including ContractorMate submission, API/idempotency headers, consent behavior, and GA4 `G-22KRBSFPDX`.
-- Captured the pre-redesign content/structured-data/form baseline in `tests/baseline-content.json` and added repeatable local verification in `tests/site_audit.py`.
-- Deleted exactly the 17 named service hero JPGs after a zero-reference check.
-- Fixed the mobile stacked-flow regression at all widths below 900 px: sections and layout wrappers now have automatic height with no minimum or maximum reservation, sticky estimates become static, mobile reveals render visibly, and hero parallax is disabled.
-- Put the desktop header tagline on its own line and hide it below 1100 px.
-- Made SVG drawing captions filled 9 px monospace text with no inherited stroke or paint-order effect.
-- Added the WCAG-AA light-ground text accent `#a94000`; safety orange remains the button, rule, dark-ground, and blueprint-line accent. Corrected the dark service-area paragraph color as well.
-- Replaced visible footer `h4` elements with plain strong labels while retaining hidden compatibility targets for the unchanged `main.js` selector.
-- Added a self-contained 32 x 32 `favicon.ico`, generated from `images/logo-sm.png`, and linked it from all 48 page heads.
+- Added five local `@font-face` rules with `font-display: swap` and the Latin unicode range:
+  - Barlow Condensed 700 and 800 for display type
+  - IBM Plex Sans variable 400 through 600 for body type
+  - IBM Plex Mono 400 and 500 for labels, dimensions, and data
+- Preloaded Barlow Condensed 800 and IBM Plex Sans variable in every page head. Every local stylesheet, script, font, and active image URL now has an idempotent eight-character SHA-256 query stamp.
+- Removed all serif declarations, Georgia references, gradients, glow, identity assets, video references, identity scripts, counters, scroll cues, and homepage section numbering.
+- Rebuilt the shared chrome with the required top bar, desktop navigation, mobile link strip, fixed mobile call and estimate bar, and legal footer. The existing phone number, legal footer line, disclosure link, JSON-LD `legalName`, and JSON-LD identifier were preserved.
+- Replaced every active hero render with the three-plane blueprint system: grid, dimension frame, and drawing on charcoal. Drawings use a short draw-on effect, while reduced-motion and sub-900 layouts render a complete static state.
+- Created `assets/og-source.svg` and rendered it through local Chrome to `assets/og.png` at 1200 by 630. It uses the logo, blueprint grid, construction marks, and line drawing only. Every Open Graph and Twitter image tag points to the stamped PNG.
+- Rebuilt the homepage in the required order: two-line desktop and three-line mobile H1, one-line promise, registration/bond/liability/permit proof strip, David identity strip and portrait, Call and Request an estimate actions, 17-row service drafting ledger, five-step process rail, nine-area band, credentials facts, three recent guides, estimate form, and footer.
+- Kept `images/david-headshot.jpg` on the about page and added the same dimensioned image to the homepage owner strip.
+- Restyled service, area, blog, about, contact, portfolio, disclosure, privacy, and 404 pages through the shared Workshop tokens and chrome. Existing secondary-page content, links, forms, article bodies, and FAQ wording remain protected by the audit.
+- Replaced portfolio placeholders with blueprint drawings and the honest project-photo notice.
+- Simplified `js/ui.js` to progressive reveals, blueprint draw-on, desktop-only three-rate parallax, process progress, and FAQ synchronization. `js/main.js` and `js/tracking.js` remain byte-identical.
+- Added `scripts/build_site.py` for repeatable homepage composition and asset stamping. It scopes itself to the 48 production pages and is idempotent.
+- Updated the test and audit baselines for the retired identity layer, drafting ledger, local fonts, cache stamps, phone counts, registration/disclosure coverage, and homepage copy rules. Production discovery is explicitly limited to root, `areas`, `blog`, and `services`, so browser tooling under `lab` cannot be mistaken for site pages.
+- Added the Playwright capture helper and retained the final evidence under `lab/shots/`.
 
-## Local verification
+## DESIGN.md fork choices
 
-Run:
+- `DESIGN.md` requires a service drafting ledger, while `REDESIGN_SPEC.md` still describes a card grid. The homepage follows `DESIGN.md` and uses ledger rows.
+- `REDESIGN_SPEC.md` contains an obsolete phone number, while the run instructions require the current number to remain unchanged. The existing `(425) 380-0511` and `tel:+14253800511` occurrences were preserved exactly, including their per-page counts.
+- `DESIGN.md` requires facts-only credentials and rejects invented testimonials. The homepage testimonial material was removed, and the credential presentation contains only the registration, bond, insurance, and permit facts.
+- The homepage was deliberately recomposed under the new Section 6 order. Secondary-page body copy and FAQs were preserved as required. The banned-word and visible em-dash acceptance check therefore applies to the newly authored homepage copy without rewriting protected articles or FAQ answers.
 
-```powershell
+## Verification results
+
+### Automated tests
+
+```text
 python -m unittest discover -s tests -p "test_*.py" -v
+Ran 24 tests in 0.117s
+OK
+
 python tests/site_audit.py verify
-node --check js/main.js
-node --check js/tracking.js
+VERIFY PASS: 48 HTML pages
+Internal references: 2179 checked; broken=0
+JSON-LD: 120 blocks parsed; valid GeneralContractor pages=48/48
+Protected content: main.js, tracking.js, disclosure body, 14 blog bodies checked
+Sizes: css/style.css=32491 bytes; js/ui.js=3891 bytes
+
 node --check js/ui.js
+PASS
+
+node --check js/main.js
+PASS
 ```
 
-The audit checks the 48-URL set, internal `href`/`src` resolution and fragments, JSON-LD parsing and contractor identity, exact legal/header wording, prohibited business names, baseline page text and internal links, form fields, protected script hashes, disclosure and blog-body hashes, SVG/page-type structures, image attributes, obsolete hero references, and CSS/JS size budgets.
+The site audit is also the repository-wide internal link checker. It resolves internal `href`, `src`, and fragment targets across all 48 production pages.
 
-## Browser checklist
+The final build-helper repeatability check found 48 production pages, `Idempotent=True`, and zero files changed by a second run.
 
-- At desktop width, confirm the sticky charcoal header, service/area dropdowns, ADU-led hero composition, SVG stroke animation, and distinct parallax rates for grid/frame/drawing.
-- Scroll the homepage through all sections and confirm the service reveals, five-step orange process fill, nine area chips, credential counters, guides, and estimate anchor.
-- At 720 px and below, confirm the single-row horizontal navigation strip, stacked content/sidebar layouts, and fixed Call / Estimate bottom bar without horizontal page overflow.
-- At 899 px and below, confirm sections use normal document flow with no reserved-height gaps and no parallax transforms; below-fold reveal items intentionally render visible in this static mobile layout.
-- On a service page, open several FAQ summaries and confirm only one stays open; confirm the estimate sidebar remains sticky on desktop.
-- On an area page, confirm the map-pin blueprint and local content/sidebar layout.
-- Confirm blog article bodies remain readable and unchanged, the contact form retains all fields and SMS consent, the portfolio shows drawing tiles rather than photos, and the disclosure content is complete.
-- If testing the form endpoint intentionally, use a controlled test lead and confirm success/error UI, `x-api-key`, and `idempotency-key` behavior without creating duplicate opportunities.
-- Run a mobile Lighthouse audit and confirm the requested score of 90 or better under the deployment’s normal analytics/network conditions.
+`git diff --check` passed. Git's Windows line-ending normalization notices are informational and did not report whitespace errors.
+
+Protected script hashes:
+
+```text
+js/main.js      5f2e694802d92004f9e1285a2af48b40ada7ed0bf64e70ea1f94fe097c54de65
+js/tracking.js  7c1d71dd1967f3d70a6c56bcd970951681dde120727ad7904a82a803ea19798b
+```
+
+### Browser verification
+
+Chrome launched from `C:\Program Files\Google\Chrome\Application\chrome.exe` through `playwright-core`. Final full-page screenshots were captured and visually inspected at 1440 by 1000 and 390 by 844 for:
+
+- `index.html`
+- `services/adu-construction.html`
+- `areas/everett.html`
+- `blog/adu-cost-snohomish-county.html`
+- `about.html`
+- `contact.html`
+
+All 12 captures returned HTTP 200, loaded Barlow Condensed, IBM Plex Sans, and IBM Plex Mono, reported zero horizontal overflow, zero missing or dimensionless images, zero page errors, and zero failed local requests. The homepage H1 measured two lines at 1440 and three at 390. The final screenshots and the machine-readable report are in `lab/shots/`.
+
+The sandbox denied the GA4 network request, producing the expected browser console resource error. No site asset failed, and no ContractorMate request was made.
+
+### Asset sizes and hashes
+
+```text
+css/style.css                             32491 bytes  b10fa4cb
+js/ui.js                                   3891 bytes  a3df498b
+js/main.js                                10850 bytes  5f2e6948
+js/tracking.js                             2949 bytes  7c1d71dd
+assets/og.png                            154562 bytes  952557b6
+assets/og-source.svg                       2331 bytes  6442632d
+assets/fonts/barlow-condensed-700.woff2   22444 bytes  3787a5a4
+assets/fonts/barlow-condensed-800.woff2   22464 bytes  2515494e
+assets/fonts/ibm-plex-mono-400.woff2      14708 bytes  08949f72
+assets/fonts/ibm-plex-mono-500.woff2      14888 bytes  01d28544
+assets/fonts/ibm-plex-sans-var.woff2      45712 bytes  e2291e84
+```
+
+The only runtime external request declarations are the protected ContractorMate endpoint in `js/main.js` and GA4 in `js/tracking.js`. There are no external font, image, stylesheet, or video requests.
+
+## Deleted files
+
+```text
+css/identity.css
+assets/identity/hero-small.webp
+assets/identity/hero.webp
+assets/identity/hero.mp4
+assets/identity/motion.css
+assets/identity/motion.js
+assets/identity/og.jpg
+assets/identity/provenance.json
+```
+
+The now-empty `assets/identity/` directory was removed.
+
+## Round 2
+
+- Tightened the homepage hero to `clamp(48px, 7vw, 88px)` vertical padding and rendered gaps of 20px, 40px, 32px, and 32px from H1 through the actions. At 1440 the hero is 709px tall, the H1 is two lines, and the blueprint drawing is centred on the full stack; at 390 the H1 remains three lines.
+- Deleted `assets/hero.mp4`, `assets/hero-poster.jpg`, `assets/hero-poster-640.jpg`, `images/hero.jpg`, `images/tree-rings.jpg`, and `images/headshot.jpg`. The runtime must-not-reference list now checks all six paths. `images/david-headshot.jpg` and the approved logo, favicon, Open Graph, and font assets remain.
+- Made the homepage guides a two-plus-one drafting layout at 1440: the first guide is wide with its full excerpt, while the two linked guides at right show date and title. At 390 they collapse to one column; the secondary excerpts stay suppressed to preserve the same hierarchy without changing their source content or links.
+- Locked the service ledger to a shared baseline grid. Every 1440 row is 166px with a 112 by 96 drawing; every 390 row is 142px with an 80 by 80 drawing and a 254px text column. The browser report found zero copy/drawing overlaps.
+- Added and ran `scripts/stamp_assets.py`; two consecutive runs processed 48 pages and reported `Idempotent=True`.
+
+Reference check after deletion:
+
+```text
+rg -n --glob '*.html' --glob '*.css' --glob '*.js' 'assets/hero\.mp4|assets/hero-poster\.jpg|assets/hero-poster-640\.jpg|images/hero\.jpg|images/tree-rings\.jpg|images/headshot\.jpg' .
+Retired media reference check: 0 matches in HTML/CSS/JS
+```
+
+Screenshots inspected at 1440 by 1000 and 390 by 844: `index`, `service-adu-construction`, `area-everett`, `blog-adu-cost`, `about`, and `contact`. All 12 current captures are in `lab/shots/`; `report.json` contains 12 results and the capture runner reported zero mechanical failures.
 
 ## Open items
 
-- A local Playwright/Chromium check now covers the exact 390 x 844 viewport. It measured a zero-pixel hero-to-services gap, zero-pixel maximum gap between adjacent home sections, visible service cards, `min-height: 0`, `max-height: none`, and a static service-page estimate sidebar. A deployed Lighthouse run remains a final manual check because analytics and deployment conditions are outside this local-only pass.
-- No real ContractorMate form submission was made because verification was required to remain local and must not spend API credits or transmit test lead data.
-- `images/hero.jpg`, `images/headshot.jpg`, and `images/tree-rings.jpg` remain as unreferenced legacy files. They were not among the 17 files explicitly authorized for deletion. The active HTML uses only `logo-sm.png` and `david-headshot.jpg`; `logo.png` remains retained as requested.
-- `git diff --check` passes. Git prints Windows line-ending normalization notices for the migrated HTML/CSS files; they are informational and do not indicate whitespace errors.
+- No real estimate form was submitted. This avoided transmitting a test lead or spending service credits.
+- No deployed Lighthouse run was performed because this run was explicitly local and unpushed. CSS and UI JavaScript are within the requested budgets, active images have dimensions and below-fold lazy loading, and the browser pass found no layout overflow.
+- The sandbox blocked recursive cleanup of Chrome's ignored scratch directory at `lab/tmp/`. It is excluded in `.gitignore` and is not part of the site or screenshot deliverables.
+- The branch and linked worktree were intentionally left as-is with no commit or push.

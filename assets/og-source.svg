@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="minor" width="12" height="12" patternUnits="userSpaceOnUse">
+      <path d="M12 0H0V12" fill="none" stroke="#f4f1ea" stroke-width="0.5" opacity="0.08"/>
+    </pattern>
+    <pattern id="major" width="96" height="96" patternUnits="userSpaceOnUse">
+      <rect width="96" height="96" fill="url(#minor)"/>
+      <path d="M96 0H0V96" fill="none" stroke="#f4f1ea" stroke-width="1" opacity="0.10"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L8 4 0 8z" fill="#ff6a13"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="630" fill="#161616"/>
+  <rect width="1200" height="630" fill="url(#major)"/>
+  <path d="M44 42H1156V588H44z" fill="none" stroke="#ff6a13" stroke-width="2"/>
+  <path d="M72 76H432M72 554H432" fill="none" stroke="#ff6a13" stroke-width="1" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="198" y="68" fill="#ff6a13" font-family="monospace" font-size="13" letter-spacing="2">FIELD VERIFY</text>
+  <image x="88" y="112" width="320" height="320" xlink:href="../images/logo-sm.png"/>
+  <path d="M486 470h620M486 493h620" fill="none" stroke="#6f7f89" stroke-width="1" opacity="0.75"/>
+  <path d="M935 398v-92l66-38 66 38v92m-132-92 66 31 66-31m-105 92v-47h37v47" fill="none" stroke="#f4f1ea" stroke-width="3"/>
+  <path d="M916 420h174" fill="none" stroke="#ff6a13" stroke-width="2"/>
+  <text x="486" y="175" fill="#f4f1ea" font-family="Barlow Condensed,Arial Narrow,Arial,sans-serif" font-size="76" font-weight="800" letter-spacing="1">NW GENERAL</text>
+  <text x="486" y="246" fill="#f4f1ea" font-family="Barlow Condensed,Arial Narrow,Arial,sans-serif" font-size="76" font-weight="800" letter-spacing="1">CONTRACTOR</text>
+  <text x="489" y="298" fill="#b8c1c5" font-family="IBM Plex Sans,Arial,sans-serif" font-size="25">ADUs, additions and remodels</text>
+  <text x="489" y="334" fill="#b8c1c5" font-family="IBM Plex Sans,Arial,sans-serif" font-size="25">built to Snohomish County code</text>
+  <text x="489" y="531" fill="#ff6a13" font-family="monospace" font-size="18" letter-spacing="2">WA REGISTRATION NWSTYSH768DA</text>
+</svg>
