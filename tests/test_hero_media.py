@@ -99,8 +99,8 @@ class WorkshopHeroTests(unittest.TestCase):
         expected = f"/assets/og.png?v={asset_hash('assets/og.png')}"
         for page in site_html_pages():
             source = page.read_text(encoding="utf-8")
-            self.assertIn(f'<meta property="og:image" content="https://nwgeneralcontractor.com{expected}">', source, page)
-            self.assertIn(f'<meta name="twitter:image" content="https://nwgeneralcontractor.com{expected}">', source, page)
+            self.assertIn(f'<meta property="og:image" content="https://www.nwgeneralcontractor.com{expected}">', source, page)
+            self.assertIn(f'<meta name="twitter:image" content="https://www.nwgeneralcontractor.com{expected}">', source, page)
 
     def test_ui_has_blueprint_motion_but_no_media_loader_or_counters(self):
         ui = (ROOT / "js" / "ui.js").read_text(encoding="utf-8")
