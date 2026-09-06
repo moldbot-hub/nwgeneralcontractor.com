@@ -16,9 +16,10 @@ class InternalTargetNormalizationTests(unittest.TestCase):
 class ImageLoadingPolicyTests(unittest.TestCase):
     def test_allows_only_known_above_fold_or_logo_images_to_skip_lazy_loading(self):
         self.assertTrue(is_intentionally_eager_image('/images/logo-sm.png', {'logo-img'}))
-        self.assertTrue(is_intentionally_eager_image('/assets/hero-poster.jpg', {'hero-media__poster'}))
+        self.assertTrue(is_intentionally_eager_image('/images/david-headshot.jpg?v=12345678', {'hero-identity__portrait'}))
         self.assertFalse(is_intentionally_eager_image('/images/project.jpg', {'project-photo'}))
         self.assertFalse(is_intentionally_eager_image('/assets/poster.jpg', {'hero-media'}))
+        self.assertFalse(is_intentionally_eager_image('/images/david-headshot.jpg', {'about-portrait'}))
         self.assertFalse(is_intentionally_eager_image('/images/catalogo.jpg', set()))
 
 

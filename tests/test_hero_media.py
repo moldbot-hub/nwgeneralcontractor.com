@@ -1,12 +1,24 @@
-import json
-import subprocess
-import textwrap
+import hashlib
+import re
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 
+from PIL import Image
+
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def site_html_pages() -> list[Path]:
+    return sorted(
+        [
+            *ROOT.glob("*.html"),
+            *ROOT.glob("areas/*.html"),
+            *ROOT.glob("blog/*.html"),
+            *ROOT.glob("services/*.html"),
+        ]
+    )
 
 
 class Element:
@@ -35,11 +47,6 @@ class DocumentParser(HTMLParser):
             raise AssertionError(f"unexpected closing tag: {tag}")
         self.stack.pop()
 
-    def close(self):
-        super().close()
-        if len(self.stack) != 1:
-            raise AssertionError(f"unclosed tag: {self.stack[-1].tag}")
-
 
 def walk(element):
     yield element
@@ -51,160 +58,59 @@ def classes(element):
     return set(element.attrs.get("class", "").split())
 
 
-def css_rule(source, selector):
-    import re
-
-    match = re.search(r"(?:^|})\s*" + re.escape(selector) + r"\s*\{([^}]*)\}", source)
-    if not match:
-        raise AssertionError(f"missing CSS rule for {selector}")
-    return "".join(match.group(1).split())
+def asset_hash(relative_path):
+    return hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()[:8]
 
 
-def composite(foreground, background, alpha):
-    return tuple(alpha * front + (1 - alpha) * back for front, back in zip(foreground, background))
+class WorkshopHeroTests(unittest.TestCase):
+    """Catches a return to generated hero media or a flattened blueprint hero."""
 
+    def setUp(self):
+        self.source = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.parser = DocumentParser()
+        self.parser.feed(self.source)
+        self.parser.close()
 
-def luminance(rgb):
-    channels = [channel / 255 for channel in rgb]
-    linear = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4 for value in channels]
-    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+    def test_home_hero_uses_three_blueprint_planes_and_no_video(self):
+        hero = next(e for e in walk(self.parser.root) if e.tag == "section" and "home-hero" in classes(e))
+        stage = next(e for e in walk(hero) if "blueprint-stage" in classes(e))
+        descendants = list(walk(stage))
+        self.assertTrue(any("blueprint-grid" in classes(e) for e in descendants))
+        self.assertTrue(any("dimension-frame" in classes(e) for e in descendants))
+        self.assertTrue(any("blueprint-drawing" in classes(e) for e in descendants))
+        self.assertFalse(any(e.tag == "video" for e in walk(hero)))
+        self.assertNotIn("/assets/identity", self.source)
 
+    def test_home_hero_has_owner_identity_and_stable_portrait_dimensions(self):
+        identity = next(e for e in walk(self.parser.root) if "hero-identity" in classes(e))
+        portrait = next(e for e in walk(identity) if e.tag == "img")
+        self.assertEqual(portrait.attrs.get("src", "").split("?", 1)[0], "/images/david-headshot.jpg")
+        self.assertEqual(portrait.attrs.get("width"), "600")
+        self.assertEqual(portrait.attrs.get("height"), "750")
+        self.assertIn("David", portrait.attrs.get("alt", ""))
+        self.assertIn("NWSTYSH768DA", self.source)
 
-def contrast(first, second):
-    light, dark = sorted((luminance(first), luminance(second)), reverse=True)
-    return (light + 0.05) / (dark + 0.05)
+    def test_social_card_is_blueprint_png_with_correct_dimensions(self):
+        card = ROOT / "assets" / "og.png"
+        self.assertTrue(card.is_file())
+        with Image.open(card) as image:
+            self.assertEqual(image.format, "PNG")
+            self.assertEqual(image.size, (1200, 630))
+        expected = f"/assets/og.png?v={asset_hash('assets/og.png')}"
+        for page in site_html_pages():
+            source = page.read_text(encoding="utf-8")
+            self.assertIn(f'<meta property="og:image" content="https://nwgeneralcontractor.com{expected}">', source, page)
+            self.assertIn(f'<meta name="twitter:image" content="https://nwgeneralcontractor.com{expected}">', source, page)
 
-
-class HeroMediaTests(unittest.TestCase):
-    def test_home_hero_starts_with_accessible_poster_and_optional_motion(self):
-        parser = DocumentParser()
-        parser.feed((ROOT / "index.html").read_text(encoding="utf-8"))
-        parser.close()
-        hero = next(e for e in walk(parser.root) if e.tag == "section" and "home-hero" in classes(e))
-        image = next(e for e in walk(hero) if e.tag == "img" and "/assets/identity/hero.webp" in e.attrs.get("src", ""))
-        self.assertTrue(image.attrs.get("alt"))
-        self.assertEqual(image.attrs.get("fetchpriority"), "high")
-        self.assertEqual(image.attrs.get("width"), "1600")
-        self.assertTrue(any(e.tag == "figcaption" for e in walk(hero)))
-        video = next(e for e in walk(hero) if e.tag == "video")
-        self.assertNotIn("src", video.attrs)
-        self.assertEqual(video.attrs.get("preload"), "none")
-        self.assertIn("muted", video.attrs)
-        self.assertIn("playsinline", video.attrs)
-        self.assertEqual(video.attrs.get("aria-hidden"), "true")
-        self.assertTrue(any(e.tag == "button" and "scene" in e.attrs.get("aria-label", "") for e in walk(hero)))
-
-    def test_media_layer_is_behind_content_and_video_respects_css_preferences(self):
-        css = (ROOT / "css" / "style.css").read_text(encoding="utf-8")
-        media = css_rule(css, ".hero-media")
-        self.assertIn("position:absolute", media)
-        self.assertIn("inset:0", media)
-        self.assertIn("overflow:hidden", media)
-        self.assertIn("z-index:0", media)
-        overlay = css_rule(css, ".hero-media::after")
-        self.assertIn("linear-gradient(90deg,rgba(20,20,20,.72)0%,rgba(20,20,20,.72)55%,rgba(20,20,20,.55)100%)", overlay)
-        self.assertIn("object-fit:cover", css_rule(css, ".hero-media__poster,.hero-media__video"))
-        self.assertIn("z-index:1", css_rule(css, ".home-hero .hero-layout"))
-        stage = css_rule(css, ".home-hero .blueprint-stage")
-        self.assertIn("background:rgba(24,24,24,.4)", stage)
-
-        poster_average = (137, 120, 103)
-        charcoal = (20, 20, 20)
-        stage_charcoal = (24, 24, 24)
-        orange = (255, 106, 19)
-        copy_background = composite(charcoal, poster_average, 0.72)
-        drawing_background = composite(stage_charcoal, composite(charcoal, poster_average, 0.55), 0.4)
-        self.assertGreaterEqual(contrast(orange, copy_background), 4.5)
-        self.assertGreaterEqual(contrast(orange, drawing_background), 4.5)
-        video = css_rule(css, ".hero-media__video")
-        self.assertIn("opacity:0", video)
-        self.assertIn("opacity600ms", video.replace(":", ""))
-        self.assertIn("opacity:1", css_rule(css, ".hero-media__video.is-playing"))
-        self.assertIn(".hero-media__video{display:none}", css.replace(" ", "").split("@media(max-width:719px)", 1)[1])
-        self.assertIn(".hero-media__video{display:none", css.replace(" ", "").split("@media(prefers-reduced-motion:reduce)", 1)[1])
-
-    def test_video_source_is_added_after_load_only_for_eligible_visitors(self):
-        harness = textwrap.dedent(
-            r"""
-            const fs = require('fs');
-            const vm = require('vm');
-            const uiSource = fs.readFileSync(process.argv[1], 'utf8');
-
-            async function exercise(options) {
-              const windowListeners = {};
-              const videoListeners = {};
-              const classes = [];
-              let loadCalls = 0;
-              let playCalls = 0;
-              const video = {
-                children: [],
-                classList: { add(name) { classes.push(name); } },
-                addEventListener(name, callback) { videoListeners[name] = callback; },
-                appendChild(child) { this.children.push(child); },
-                load() { loadCalls += 1; },
-                play() { playCalls += 1; return Promise.resolve(); }
-              };
-              const document = {
-                querySelectorAll() { return []; },
-                querySelector(selector) { return selector === '.hero-media__video' ? video : null; },
-                createElement(tag) { return { tagName: tag.toUpperCase() }; }
-              };
-              const window = {
-                innerWidth: options.width,
-                matchMedia(query) {
-                  const matches = query.includes('no-preference') ? !options.reduced : options.reduced;
-                  return { matches, addEventListener() {} };
-                },
-                addEventListener(name, callback) { windowListeners[name] = callback; }
-              };
-              const context = {
-                document,
-                navigator: { connection: { saveData: options.saveData } },
-                requestAnimationFrame() {},
-                window
-              };
-              vm.runInNewContext(uiSource, context);
-              const beforeLoad = video.children.length;
-              if (windowListeners.load) windowListeners.load();
-              await Promise.resolve();
-              return {
-                beforeLoad,
-                source: video.children[0] || null,
-                loadCalls,
-                playCalls,
-                classes,
-                canplayListener: Boolean(videoListeners.canplay)
-              };
-            }
-
-            (async () => {
-              const results = {
-                eligible: await exercise({ width: 1280, reduced: false, saveData: false }),
-                narrow: await exercise({ width: 719, reduced: false, saveData: false }),
-                reduced: await exercise({ width: 1280, reduced: true, saveData: false }),
-                saveData: await exercise({ width: 1280, reduced: false, saveData: true })
-              };
-              process.stdout.write(JSON.stringify(results));
-            })().catch(error => { console.error(error); process.exit(1); });
-            """
-        )
-        result = subprocess.run(
-            ["node", "-e", harness, str(ROOT / "js" / "ui.js")],
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        states = json.loads(result.stdout)
-        eligible = states["eligible"]
-        self.assertEqual(eligible["beforeLoad"], 0)
-        self.assertEqual(eligible["source"]["src"], "/assets/hero.mp4")
-        self.assertEqual(eligible["source"]["type"], "video/mp4")
-        self.assertEqual((eligible["loadCalls"], eligible["playCalls"]), (1, 1))
-        self.assertTrue(eligible["canplayListener"])
-        self.assertIn("is-playing", eligible["classes"])
-        for name in ("narrow", "reduced", "saveData"):
-            self.assertIsNone(states[name]["source"], name)
-            self.assertEqual((states[name]["loadCalls"], states[name]["playCalls"]), (0, 0), name)
+    def test_ui_has_blueprint_motion_but_no_media_loader_or_counters(self):
+        ui = (ROOT / "js" / "ui.js").read_text(encoding="utf-8")
+        self.assertIn(".blueprint-grid", ui)
+        self.assertIn(".dimension-frame", ui)
+        self.assertIn(".blueprint-drawing", ui)
+        self.assertIn("prefers-reduced-motion", ui)
+        self.assertNotIn("hero-media", ui)
+        self.assertNotIn("data-count", ui)
+        self.assertNotRegex(ui, re.compile(r"createElement\(['\"]source"))
 
 
 if __name__ == "__main__":

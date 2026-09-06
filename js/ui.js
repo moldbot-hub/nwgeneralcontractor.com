@@ -1,4 +1,4 @@
-/* Workshop UI: progressive reveal, blueprint drawing, parallax, counters. */
+/* Workshop UI: progressive reveal, blueprint drawing, parallax, process. */
 (function () {
   'use strict';
 
@@ -37,34 +37,6 @@
         }
       });
     });
-  });
-
-  function setCounter(el, value) {
-    var prefix = el.getAttribute('data-prefix') || '';
-    var suffix = el.getAttribute('data-suffix') || '';
-    el.textContent = prefix + Math.round(value).toLocaleString('en-US') + suffix;
-  }
-
-  document.querySelectorAll('[data-count]').forEach(function (counter) {
-    var target = Number(counter.getAttribute('data-count'));
-    if (!isFinite(target)) return;
-    if (reduced.matches || !('IntersectionObserver' in window)) {
-      setCounter(counter, target);
-      return;
-    }
-    var counterObserver = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      counterObserver.disconnect();
-      var start;
-      function tick(time) {
-        if (!start) start = time;
-        var progress = Math.min((time - start) / 700, 1);
-        setCounter(counter, target * (1 - Math.pow(1 - progress, 3)));
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }, { threshold: 0.5 });
-    counterObserver.observe(counter);
   });
 
   var hero = document.querySelector('.blueprint-hero');
@@ -129,18 +101,4 @@
     });
   });
 
-  window.addEventListener('load', function () {
-    var connection = navigator.connection;
-    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches || window.innerWidth < 720 || (connection && connection.saveData)) return;
-    var video = document.querySelector('.hero-media__video');
-    if (!video) return;
-    function showVideo() { video.classList.add('is-playing'); }
-    video.addEventListener('canplay', showVideo, { once: true });
-    var source = document.createElement('source');
-    source.src = '/assets/hero.mp4';
-    source.type = 'video/mp4';
-    video.appendChild(source);
-    video.load();
-    video.play().then(showVideo).catch(function () {});
-  });
 })();

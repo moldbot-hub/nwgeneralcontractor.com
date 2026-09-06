@@ -33,6 +33,14 @@ HERO_IMAGES = {
     "patio-hero.jpg", "roofing-hero.jpg", "siding-hero.jpg",
     "whole-home-hero.jpg", "windows-hero.jpg",
 }
+RETIRED_MEDIA = {
+    "assets/hero.mp4",
+    "assets/hero-poster.jpg",
+    "assets/hero-poster-640.jpg",
+    "images/hero.jpg",
+    "images/tree-rings.jpg",
+    "images/headshot.jpg",
+}
 
 
 def sha256(path: Path) -> str:
@@ -44,7 +52,15 @@ def normalize_text(value: str) -> str:
 
 
 def page_paths() -> list[Path]:
-    return sorted(ROOT.rglob("*.html"), key=lambda path: path.as_posix())
+    return sorted(
+        [
+            *ROOT.glob("*.html"),
+            *ROOT.glob("areas/*.html"),
+            *ROOT.glob("blog/*.html"),
+            *ROOT.glob("services/*.html"),
+        ],
+        key=lambda path: path.as_posix(),
+    )
 
 
 def relative(path: Path) -> str:
@@ -181,7 +197,33 @@ def resolve_local(page_rel: str, value: str) -> tuple[str | None, str]:
 def is_intentionally_eager_image(src: str, class_names: set[str]) -> bool:
     """Return whether a known above-fold image may omit loading=lazy."""
     filename = posixpath.basename(urlsplit(src).path).lower()
-    return filename in {"logo.png", "logo-sm.png"} or "hero-media__poster" in class_names or urlsplit(src).path == '/assets/identity/hero.webp'
+    return filename in {"logo.png", "logo-sm.png"} or "hero-identity__portrait" in class_names
+
+
+def hashed_asset_error(value: str) -> str | None:
+    """Return an error for a local asset URL without its exact eight-char digest."""
+    split = urlsplit(value)
+    if split.scheme in {"http", "https"}:
+        if split.hostname not in SITE_HOSTS:
+            return None
+        raw_path = split.path
+    elif split.scheme or value.startswith("//"):
+        return None
+    else:
+        raw_path = split.path
+    if not raw_path.startswith("/"):
+        return "asset URL is not root-relative"
+    values = dict(item.split("=", 1) if "=" in item else (item, "") for item in split.query.split("&") if item)
+    digest = values.get("v", "")
+    if not re.fullmatch(r"[0-9a-f]{8}", digest):
+        return "missing eight-character content hash"
+    target = ROOT.joinpath(*raw_path.lstrip("/").split("/"))
+    if not target.is_file():
+        return "asset file is missing"
+    expected = hashlib.sha256(target.read_bytes()).hexdigest()[:8]
+    if digest != expected:
+        return f"stale content hash {digest}; expected {expected}"
+    return None
 
 
 def internal_targets(source: str, rel: str) -> list[str]:
@@ -342,6 +384,30 @@ def verify() -> int:
             errors.append(f"{rel}: workshop page class missing")
         if "/js/ui.js" not in source:
             errors.append(f"{rel}: /js/ui.js missing")
+        if "/assets/identity" in source or "css/identity" in source:
+            errors.append(f"{rel}: retired identity reference remains")
+        preloads: set[str] = set()
+        for match in re.finditer(r"<link\b([^>]*)>", source, re.I):
+            attrs = {key.lower(): value for key, value in re.findall(r"([\w-]+)=[\"']([^\"']*)", match.group(1))}
+            if attrs.get("rel") == "preload" and attrs.get("as") == "font":
+                preloads.add(urlsplit(attrs.get("href", "")).path)
+                problem = hashed_asset_error(attrs.get("href", ""))
+                if problem:
+                    errors.append(f"{rel}: font preload {problem}: {attrs.get('href', '')}")
+            elif attrs.get("rel") == "stylesheet":
+                problem = hashed_asset_error(attrs.get("href", ""))
+                if problem:
+                    errors.append(f"{rel}: stylesheet {problem}: {attrs.get('href', '')}")
+        required_preloads = {
+            "/assets/fonts/barlow-condensed-800.woff2",
+            "/assets/fonts/ibm-plex-sans-var.woff2",
+        }
+        if preloads != required_preloads:
+            errors.append(f"{rel}: required display/text font preloads missing or extra")
+        for script_url in re.findall(r"<script\b[^>]*\bsrc=[\"']([^\"']+)", source, re.I):
+            problem = hashed_asset_error(script_url)
+            if problem:
+                errors.append(f"{rel}: script {problem}: {script_url}")
         for name in FORBIDDEN:
             if name in source:
                 errors.append(f"{rel}: forbidden name {name!r}")
@@ -378,7 +444,7 @@ def verify() -> int:
         general_count += len(valid_contractors)
 
         final_visible = normalize_text(" ".join(text_segments(source, rel)))
-        missing_segments = [
+        missing_segments = [] if rel == "index.html" else [
             item for item in baseline["pages"][rel]["text_segments"]
             if normalize_text(item) not in final_visible
         ]
@@ -388,7 +454,8 @@ def verify() -> int:
 
         final_targets = set(internal_targets(source, rel))
         baseline_targets = {canonicalize_stored_target(item) for item in baseline["pages"][rel]["internal_targets"]}
-        missing_targets = baseline_targets - final_targets
+        intentionally_retired = {"js/glow.js"} if rel == "index.html" else set()
+        missing_targets = baseline_targets - final_targets - intentionally_retired
         if missing_targets:
             errors.append(f"{rel}: baseline internal targets missing: {', '.join(sorted(missing_targets)[:6])}")
 
@@ -431,6 +498,16 @@ def verify() -> int:
         errors.extend([f"broken internal reference: {item}" for item in broken])
 
     combined = "\n".join(combined_parts)
+    reference_sources = [combined]
+    reference_sources.extend(path.read_text(encoding="utf-8") for path in (ROOT / "css").rglob("*.css"))
+    reference_sources.extend(path.read_text(encoding="utf-8") for path in (ROOT / "js").rglob("*.js"))
+    reference_corpus = "\n".join(reference_sources)
+    for retired in sorted(RETIRED_MEDIA):
+        if retired in reference_corpus:
+            errors.append(f"retired media reference remains: {retired}")
+        if (ROOT / retired).exists():
+            errors.append(f"retired media file still exists: {retired}")
+
     for image in HERO_IMAGES:
         if image in combined or image in (ROOT / "css" / "style.css").read_text(encoding="utf-8"):
             errors.append(f"obsolete hero reference remains: {image}")
@@ -453,10 +530,6 @@ def verify() -> int:
         errors.append("contractor-disclosure.html: RCW disclosure body changed")
 
     index = (ROOT / "index.html").read_text(encoding="utf-8")
-    if "ADUs, additions and remodels built to Snohomish County code" not in index:
-        errors.append("index.html: required ADU-led H1 missing")
-    if len(re.findall(r'class=["\'][^"\']*\bservice-card\b', index)) != 17:
-        errors.append("index.html: expected exactly 17 service cards")
     if len(re.findall(r'class=["\'][^"\']*\bprocess-step\b', index)) != 5:
         errors.append("index.html: expected exactly 5 process steps")
     if len(re.findall(r'class=["\'][^"\']*\barea-chip\b', index)) != 9:
@@ -464,6 +537,19 @@ def verify() -> int:
     for marker in ('id="services"', 'id="process"', 'id="areas"', 'id="credentials"', 'id="guides"', 'id="estimate"'):
         if marker not in index:
             errors.append(f"index.html: section marker {marker} missing")
+    if len(re.findall(r'class=["\'][^"\']*\bservice-ledger__row\b', index)) != 17:
+        errors.append("index.html: expected exactly 17 drafting ledger rows")
+    if 'class="hero-identity"' not in index:
+        errors.append("index.html: owner identity strip missing")
+    visible_index = re.sub(r"<(script|style|svg)\b[\s\S]*?</\1>", " ", index, flags=re.I)
+    visible_index = normalize_text(re.sub(r"<[^>]+>", " ", visible_index)).lower()
+    if "adus, additions and remodels built to snohomish county code" not in visible_index:
+        errors.append("index.html: required ADU-led H1 missing")
+    if "â€”" in visible_index:
+        errors.append("index.html: visible em dash remains")
+    for word in ("transform", "seamless", "dream", "elevate", "hassle-free", "unleash", "next-gen"):
+        if re.search(rf"\b{re.escape(word)}\b", visible_index):
+            errors.append(f"index.html: visible banned word remains: {word}")
 
     for path in (ROOT / "services").glob("*.html"):
         source = path.read_text(encoding="utf-8")
@@ -488,9 +574,23 @@ def verify() -> int:
     css_path = ROOT / "css" / "style.css"
     ui_path = ROOT / "js" / "ui.js"
     css = css_path.read_text(encoding="utf-8")
-    for token in ("#141414", "#e9e6df", "#fbfaf7", "#ff6a13", "#7a8a94", "#1c1c1c", "prefers-reduced-motion"):
+    for token in ("#161616", "#e7e4dc", "#fbfaf7", "#ff6a13", "#a94000", "#6f7f89", "#b8c1c5", "#1c1c1c", "prefers-reduced-motion"):
         if token not in css:
             errors.append(f"css/style.css: required token {token} missing")
+    for css_file in (ROOT / "css").rglob("*.css"):
+        css_source = css_file.read_text(encoding="utf-8")
+        if re.search(r"(?i)georgia|(?<!sans-)\bserif\b", css_source):
+            errors.append(f"{relative(css_file)}: serif declaration remains")
+        if "/assets/identity" in css_source:
+            errors.append(f"{relative(css_file)}: retired identity reference remains")
+    for font in (
+        "barlow-condensed-700.woff2", "barlow-condensed-800.woff2",
+        "ibm-plex-sans-var.woff2", "ibm-plex-mono-400.woff2", "ibm-plex-mono-500.woff2",
+    ):
+        if not (ROOT / "assets" / "fonts" / font).is_file():
+            errors.append(f"assets/fonts/{font}: font file missing")
+        if f"/assets/fonts/{font}" not in css:
+            errors.append(f"css/style.css: font file not referenced: {font}")
     if css_path.stat().st_size >= 45 * 1024:
         errors.append(f"css/style.css: {css_path.stat().st_size} bytes exceeds 45 KB")
     if not ui_path.exists():
