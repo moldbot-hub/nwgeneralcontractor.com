@@ -221,16 +221,16 @@ document.addEventListener('DOMContentLoaded', function() {
           form.innerHTML = '<div style="text-align:center;padding:2rem 1rem;">'
             + '<h3 style="color:#1a5632;margin-bottom:0.5rem;">Thank You!</h3>'
             + '<p style="color:#555;">We received your request and will get back to you within 24 hours.</p>'
-            + '<p style="color:#555;">Need immediate help? Call <a href="tel:+14253800511" style="color:#d35400;font-weight:700;">(425) 380-0511</a></p>'
+            + '<p style="color:#555;">Need immediate help? Call <a href="tel:+14255481993" style="color:#d35400;font-weight:700;">(425) 548-1993</a></p>'
             + '</div>';
         } else {
           res.json().then(function(d) {
             alert('Something went wrong: ' + (d.error || 'Please try again.'));
-          }).catch(function() { alert('Something went wrong. Please call us at (425) 380-0511.'); });
+          }).catch(function() { alert('Something went wrong. Please call us at (425) 548-1993.'); });
           if (btn) { btn.disabled = false; btn.textContent = originalText; }
         }
       }).catch(function() {
-        alert('Network error. Please call us at (425) 380-0511.');
+        alert('Network error. Please call us at (425) 548-1993.');
         if (btn) { btn.disabled = false; btn.textContent = originalText; }
       });
     });
