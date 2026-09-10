@@ -144,7 +144,7 @@ def header(active: str) -> str:
   <div class="top-bar">
     <div class="container">
       <a href="/contractor-disclosure.html">Registered, bonded and insured &middot; WA contractor NWSTYSH768DA</a>
-      <div class="top-bar-right"><a href="tel:+14253800511">(425) 380-0511</a><span>Free Estimates</span></div>
+      <div class="top-bar-right"><a href="tel:+14255481993">(425) 548-1993</a><span>Free Estimates</span></div>
     </div>
   </div>
   <header class="site-header">
@@ -160,7 +160,7 @@ def header(active: str) -> str:
         <li><a href="/blog/"{active_class('blog')}>Blog</a></li>
         <li><a href="/contact.html"{active_class('contact')}>Contact</a></li>
       </ul></nav>
-      <a href="tel:+14253800511" class="header-call">Call <span>(425) </span>380-0511</a>
+      <a href="tel:+14255481993" class="header-call">Call <span>(425) </span>548-1993</a>
       <button class="mobile-toggle" type="button" hidden aria-hidden="true" tabindex="-1">Menu</button>
     </div>
     <nav class="mobile-strip" aria-label="Mobile navigation"><ul>
@@ -180,7 +180,7 @@ def footer() -> str:
         <div class="footer-col"><h4 class="selector-compat" hidden aria-hidden="true"></h4><strong class="footer-heading">NW General Contractor</strong><p>Licensed general contractor serving Everett and Snohomish County. Quality home remodeling, ADU construction, and custom renovations.</p><p class="footer-license">WA State Licensed | Bonded | Insured</p></div>
         <div class="footer-col"><h4 class="selector-compat" hidden aria-hidden="true"></h4><strong class="footer-heading">Services</strong><ul class="footer-services">{services}</ul></div>
         <div class="footer-col"><h4 class="selector-compat" hidden aria-hidden="true"></h4><strong class="footer-heading">Service Areas</strong><ul>{areas}</ul></div>
-        <div class="footer-col"><h4 class="selector-compat" hidden aria-hidden="true"></h4><strong class="footer-heading">Contact Us</strong><ul><li><a href="tel:+14253800511">(425) 380-0511</a></li><li><a href="/contact.html">Request a Free Estimate</a></li><li><a href="/about.html">About Us</a></li><li>Everett, WA</li><li>Serving all of Snohomish County</li></ul></div>
+        <div class="footer-col"><h4 class="selector-compat" hidden aria-hidden="true"></h4><strong class="footer-heading">Contact Us</strong><ul><li><a href="tel:+14255481993">(425) 548-1993</a></li><li><a href="/contact.html">Request a Free Estimate</a></li><li><a href="/about.html">About Us</a></li><li>Everett, WA</li><li>Serving all of Snohomish County</li></ul></div>
       </div>
       <div class="footer-bottom"><span>&copy; 2026 NW Style Homes 1 LLC, doing business as NW General Contractor &middot; Washington State registered general contractor NWSTYSH768DA &middot; <a href="/contractor-disclosure.html">Contractor disclosure statement</a></span><span><a href="/privacy.html">Privacy Policy</a> | Licensed General Contractor | Everett, WA</span></div>
     </div>
@@ -191,7 +191,7 @@ def mobile_bar(home: bool = False) -> str:
     estimate = "#estimate" if home else "/contact.html#estimate"
     return f"""
   <div class="mobile-bottom-cta" aria-label="Quick contact">
-    <a href="tel:+14253800511" class="mobile-cta-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"/></svg>Call (425) 380-0511</a>
+    <a href="tel:+14255481993" class="mobile-cta-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"/></svg>Call (425) 548-1993</a>
     <a href="{estimate}" class="mobile-cta-estimate">Estimate</a>
   </div>"""
 
@@ -208,7 +208,7 @@ GENERAL_CONTRACTOR = """  <script type="application/ld+json">
       "value": "NWSTYSH768DA"
     },
     "url": "https://www.nwgeneralcontractor.com",
-    "telephone": "+14253800511",
+    "telephone": "+14255481993",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Everett",
@@ -293,7 +293,7 @@ def homepage_main() -> str:
       <div class="container hero-layout">
         <div class="hero-copy"><span class="eyebrow">Built here. Built to code.</span><h1>ADUs, additions and remodels built to Snohomish County code</h1>
           <p class="hero-promise">Registered, bonded $30,000, insured $1,000,000, and permits handled from application through inspection.</p>
-          <div class="hero-buttons"><a href="tel:+14253800511" class="btn btn-primary">Call (425) 380-0511</a><a href="#estimate" class="btn btn-outline">Request an estimate</a></div>
+          <div class="hero-buttons"><a href="tel:+14255481993" class="btn btn-primary">Call (425) 548-1993</a><a href="#estimate" class="btn btn-outline">Request an estimate</a></div>
         </div>{blueprint_stage('adu-construction')}
       </div>
     </section>
@@ -313,7 +313,7 @@ def homepage_main() -> str:
           <article class="process-step reveal" data-step="04"><h3>Build</h3><p>Sequenced trades, site protection, progress updates, and documented decisions.</p></article>
           <article class="process-step reveal" data-step="05"><h3>Walkthrough</h3><p>Final quality review, corrections, closeout, and a clean handoff.</p></article>
         </div>
-        <div class="section-header mt-3"><h3>Ready to Start Your Remodeling Project?</h3><p>Get a free, no-obligation estimate for your home improvement project. We'll visit your home, discuss your vision, and provide a detailed quote.</p><p><a href="#estimate" class="btn btn-primary">Get Your Free Estimate</a> <a href="tel:+14253800511" class="btn btn-navy">Call (425) 380-0511</a></p></div>
+        <div class="section-header mt-3"><h3>Ready to Start Your Remodeling Project?</h3><p>Get a free, no-obligation estimate for your home improvement project. We'll visit your home, discuss your vision, and provide a detailed quote.</p><p><a href="#estimate" class="btn btn-primary">Get Your Free Estimate</a> <a href="tel:+14255481993" class="btn btn-navy">Call (425) 548-1993</a></p></div>
       </div>
     </section>
 
@@ -335,7 +335,7 @@ def homepage_main() -> str:
       <a href="/blog/how-to-choose-general-contractor-everett.html" class="blog-card reveal"><div class="blog-card-meta">February 2026 &middot; 6 min read</div><h3>How to Choose a General Contractor in Everett, WA</h3><p>10 questions to ask before hiring a contractor. Protect your investment and ensure quality results for your remodeling project.</p><span class="learn-more">Read guide</span></a>
     </div></div></section>
 
-    <section id="estimate" class="estimate-section"><div class="container estimate-shell"><div><span class="eyebrow">Start with the scope</span><h2>Let's Build Something Great Together</h2><p>Your dream home is closer than you think. Contact us today for a free consultation and estimate on your next remodeling project.</p><p><strong>Get Started Today</strong></p><p>Prefer to talk through it? Call <a href="tel:+14253800511">(425) 380-0511</a>.</p></div>
+    <section id="estimate" class="estimate-section"><div class="container estimate-shell"><div><span class="eyebrow">Start with the scope</span><h2>Let's Build Something Great Together</h2><p>Your dream home is closer than you think. Contact us today for a free consultation and estimate on your next remodeling project.</p><p><strong>Get Started Today</strong></p><p>Prefer to talk through it? Call <a href="tel:+14255481993">(425) 548-1993</a>.</p></div>
       <form class="contact-form estimate-form" novalidate><div class="form-row"><div class="form-group"><label for="home-name">Your name *</label><input id="home-name" name="name" type="text" autocomplete="name" required></div><div class="form-group"><label for="home-phone">Phone</label><input id="home-phone" name="phone" type="tel" autocomplete="tel"></div></div><div class="form-row"><div class="form-group"><label for="home-email">Email *</label><input id="home-email" name="email" type="email" autocomplete="email" required></div><div class="form-group"><label for="home-city">City</label><input id="home-city" name="city" type="text" autocomplete="address-level2"></div></div><div class="form-group"><label for="home-service">Project type</label><select id="home-service" name="service"><option value="">Select a service</option><option value="adu">ADU Construction</option><option value="addition">Home Addition</option><option value="kitchen">Kitchen Remodeling</option><option value="bathroom">Bathroom Remodeling</option><option value="whole-home">Whole Home Renovation</option><option value="deck">Deck Building</option><option value="other">Other</option></select></div><div class="form-group"><label for="home-message">Project details *</label><textarea id="home-message" name="message" required></textarea></div><button class="btn btn-primary" type="submit">Request an estimate</button></form>
     </div></section>
   </main>"""
