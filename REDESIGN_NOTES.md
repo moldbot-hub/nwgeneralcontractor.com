@@ -29,7 +29,7 @@ The worktree remains on `design/workshop-deslop-2026-09`. Nothing was committed,
 ## DESIGN.md fork choices
 
 - `DESIGN.md` requires a service drafting ledger, while `REDESIGN_SPEC.md` still describes a card grid. The homepage follows `DESIGN.md` and uses ledger rows.
-- `REDESIGN_SPEC.md` contains an obsolete phone number, while the run instructions require the current number to remain unchanged. The existing `(425) 548-1993` and `tel:+14255481993` occurrences were preserved exactly, including their per-page counts.
+- `REDESIGN_SPEC.md` contains an obsolete phone number, while the run instructions require the current number to remain unchanged. The existing `(425) 439-7700` and `tel:+14254397700` occurrences were preserved exactly, including their per-page counts.
 - `DESIGN.md` requires facts-only credentials and rejects invented testimonials. The homepage testimonial material was removed, and the credential presentation contains only the registration, bond, insurance, and permit facts.
 - The homepage was deliberately recomposed under the new Section 6 order. Secondary-page body copy and FAQs were preserved as required. The banned-word and visible em-dash acceptance check therefore applies to the newly authored homepage copy without rewriting protected articles or FAQ answers.
 

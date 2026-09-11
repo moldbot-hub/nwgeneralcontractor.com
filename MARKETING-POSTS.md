@@ -22,7 +22,7 @@ I started NW General Contractor because I believe homeowners in Snohomish County
 
 If you've been thinking about updating your kitchen, renovating a bathroom, or adding an ADU for rental income, I'd love to chat about your project.
 
-Call or text me: (425) 548-1993
+Call or text me: (425) 439-7700
 Website: nwgeneralcontractor.com
 
 Licensed with WA Labor & Industries | $1M Insured | $30K Bonded
@@ -43,7 +43,7 @@ Why NW General Contractor?
 
 If you or anyone you know has been thinking about a remodeling project, I'd love to provide a free estimate. No pressure, just honest advice.
 
-📞 (425) 548-1993
+📞 (425) 439-7700
 🌐 nwgeneralcontractor.com
 
 Tag a friend who's been talking about remodeling their home!
@@ -62,7 +62,7 @@ Washington State recently loosened regulations making it easier than ever to add
 
 NW General Contractor handles the entire process — from permits to final inspection.
 
-Free estimates: (425) 548-1993 or visit nwgeneralcontractor.com/services/adu-construction.html
+Free estimates: (425) 439-7700 or visit nwgeneralcontractor.com/services/adu-construction.html
 
 ---
 
@@ -74,7 +74,7 @@ Hi everyone! I'm David, a newly licensed general contractor based in Everett. I 
 
 If anyone is planning a remodeling project and has questions about costs, permits, or finding the right contractor, feel free to reach out. Happy to give advice even if you don't hire me.
 
-(425) 548-1993 | nwgeneralcontractor.com
+(425) 439-7700 | nwgeneralcontractor.com
 
 Licensed, bonded, and insured through WA L&I.
 
@@ -103,7 +103,7 @@ WHY CHOOSE US:
 ✓ Quality materials and workmanship
 ✓ Clear communication throughout your project
 
-FREE ESTIMATES — Call or text (425) 548-1993
+FREE ESTIMATES — Call or text (425) 439-7700
 Website: nwgeneralcontractor.com
 
 Serving all of Snohomish County.
@@ -134,7 +134,7 @@ We handle everything: design assistance, permits, construction, and final inspec
 
 Licensed with WA L&I | $1M Insured | $30K Bonded
 
-FREE consultation: (425) 548-1993
+FREE consultation: (425) 439-7700
 nwgeneralcontractor.com/services/adu-construction.html
 
 ---
@@ -176,7 +176,7 @@ I'd love to buy you a coffee and learn more about how I can support your busines
 
 David
 NW General Contractor
-(425) 548-1993
+(425) 439-7700
 nwgeneralcontractor.com
 
 ---
@@ -205,7 +205,7 @@ I'd welcome the opportunity to discuss how I can support your properties. Can I 
 
 David
 NW General Contractor
-(425) 548-1993
+(425) 439-7700
 nwgeneralcontractor.com
 
 ---
@@ -216,6 +216,6 @@ Hey [Name]! Quick heads up — I just started my own general contracting company
 
 If you know anyone who's been thinking about a remodeling project, I'd really appreciate the referral. I'm offering free estimates and would love to help.
 
-(425) 548-1993 or nwgeneralcontractor.com
+(425) 439-7700 or nwgeneralcontractor.com
 
 Thanks!

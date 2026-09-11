@@ -52,9 +52,9 @@ def homepage_hero() -> str:
           <div class="hero-identity">
             <img class="hero-identity__portrait" src="/images/david-headshot.jpg" width="600" height="750" alt="David, owner and general contractor" decoding="async" fetchpriority="high">
             <div><span class="hero-identity__name">David</span><span class="hero-identity__role">Owner and General Contractor</span><span class="hero-identity__registration">WA registration NWSTYSH768DA</span></div>
-            <a class="hero-identity__phone" href="tel:+14255481993">(425) 548-1993</a>
+            <a class="hero-identity__phone" href="tel:+14254397700">(425) 439-7700</a>
           </div>
-          <div class="hero-buttons"><a class="btn btn-primary" href="tel:+14255481993">Call (425) 548-1993</a><a class="btn btn-outline" href="#estimate">Request an estimate</a></div>
+          <div class="hero-buttons"><a class="btn btn-primary" href="tel:+14254397700">Call (425) 439-7700</a><a class="btn btn-outline" href="#estimate">Request an estimate</a></div>
         </div>
         {drawing}
       </div>
@@ -90,7 +90,7 @@ def credentials_section() -> str:
 
 
 def estimate_section() -> str:
-    return '''<section id="estimate" class="estimate-section"><div class="container estimate-shell"><div><h2>Start with a clear scope</h2><p>Tell us what must change, where the property is, and what you need priced. We will identify the next useful step.</p><p><strong>Prefer to talk through it?</strong> Call <a href="tel:+14255481993">(425) 548-1993</a>.</p><p>Before comparing proposals, <a href="/about.html#project-planning">prepare your Everett and Snohomish County planning worksheet</a>.</p></div>
+    return '''<section id="estimate" class="estimate-section"><div class="container estimate-shell"><div><h2>Start with a clear scope</h2><p>Tell us what must change, where the property is, and what you need priced. We will identify the next useful step.</p><p><strong>Prefer to talk through it?</strong> Call <a href="tel:+14254397700">(425) 439-7700</a>.</p><p>Before comparing proposals, <a href="/about.html#project-planning">prepare your Everett and Snohomish County planning worksheet</a>.</p></div>
       <form class="contact-form estimate-form" novalidate><div class="form-row"><div class="form-group"><label for="home-name">Your name *</label><input id="home-name" name="name" type="text" autocomplete="name" required></div><div class="form-group"><label for="home-phone">Phone</label><input id="home-phone" name="phone" type="tel" autocomplete="tel"></div></div><div class="form-row"><div class="form-group"><label for="home-email">Email *</label><input id="home-email" name="email" type="email" autocomplete="email" required></div><div class="form-group"><label for="home-city">City</label><input id="home-city" name="city" type="text" autocomplete="address-level2"></div></div><div class="form-group"><label for="home-service">Project type</label><select id="home-service" name="service"><option value="">Select a service</option><option value="adu">ADU Construction</option><option value="addition">Home Addition</option><option value="kitchen">Kitchen Remodeling</option><option value="bathroom">Bathroom Remodeling</option><option value="whole-home">Whole Home Renovation</option><option value="deck">Deck Building</option><option value="other">Other</option></select></div><div class="form-group"><label for="home-message">Project details *</label><textarea id="home-message" name="message" required></textarea></div><button class="btn btn-primary" type="submit">Request an estimate</button></form>
     </div></section>'''
 

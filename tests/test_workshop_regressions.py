@@ -201,8 +201,8 @@ class WorkshopRegressionTests(unittest.TestCase):
         for page in HTML_PAGES:
             rel = page.relative_to(ROOT).as_posix()
             source = page.read_text(encoding="utf-8")
-            self.assertEqual(PHONE_COUNTS[rel][0], source.count("(425) 548-1993"), rel)
-            self.assertEqual(PHONE_COUNTS[rel][1], source.count("+14255481993"), rel)
+            self.assertEqual(PHONE_COUNTS[rel][0], source.count("(425) 439-7700"), rel)
+            self.assertEqual(PHONE_COUNTS[rel][1], source.count("+14254397700"), rel)
 
     def test_homepage_is_a_ledger_with_plain_visible_copy(self):
         source = (ROOT / "index.html").read_text(encoding="utf-8")
