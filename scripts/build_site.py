@@ -230,12 +230,12 @@ def normalize_head(source: str) -> str:
     )
     social_url = stamped("/assets/og.png")
     social_markup = (
-        f'<meta property="og:image" content="https://nwgeneralcontractor.com{social_url}">\n'
+        f'<meta property="og:image" content="https://www.nwgeneralcontractor.com{social_url}">\n'
         '<meta property="og:image:width" content="1200">\n'
         '<meta property="og:image:height" content="630">\n'
         '<meta property="og:image:alt" content="NW General Contractor Workshop blueprint drawing">\n'
         '<meta name="twitter:card" content="summary_large_image">\n'
-        f'<meta name="twitter:image" content="https://nwgeneralcontractor.com{social_url}">'
+        f'<meta name="twitter:image" content="https://www.nwgeneralcontractor.com{social_url}">'
     )
     source = source.replace(f'<link rel="stylesheet" href="{style_url}">', f'{preload_markup}\n  <link rel="stylesheet" href="{style_url}">', 1)
     source = source.replace("</head>", f"  {social_markup}\n</head>", 1)

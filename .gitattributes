@@ -1,1 +1,7 @@
 *.pdf binary
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
