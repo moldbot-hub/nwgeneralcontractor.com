@@ -27,7 +27,7 @@ PHONE_COUNTS = {
     "blog/adu-cost-snohomish-county.html": (5, 7),
     "blog/adu-regulations-snohomish-county.html": (5, 7),
     "blog/bathroom-remodel-cost-everett-wa.html": (4, 6),
-    "blog/deck-cost-guide-everett.html": (7, 7),
+    "blog/deck-cost-guide-everett.html": (4, 7),
     "blog/deck-materials-washington.html": (5, 7),
     "blog/home-addition-cost-everett.html": (5, 7),
     "blog/how-long-kitchen-remodel.html": (4, 6),
